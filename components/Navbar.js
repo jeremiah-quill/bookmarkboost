@@ -3,7 +3,7 @@ import { useAuth } from "../lib/useAuth.js";
 const Navbar = () => {
   const auth = useAuth();
   return (
-    <nav className="flex justify-between fixed top-0 w-full p-5 items-center border-b-slate-400 border-b">
+    <nav className="bg-white flex justify-between fixed top-0 w-full p-5 items-center shadow-md">
       <h1 className="text-2xl">BB</h1>
       {!auth.user ? (
         <button onClick={() => auth.signInWithGoogle()}>Login</button>
