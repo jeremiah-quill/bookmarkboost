@@ -3,26 +3,28 @@ import Landing from "../components/Landing";
 import { useAuth } from "../lib/useAuth";
 import { supabase } from "../lib/supabase";
 
-export async function getServerSideProps() {
-  const { data: bookmarks, error } = await supabase.from("bookmarks").select("*");
+// export async function getServerSideProps() {
+//   const { data: bookmarks, error } = await supabase.from("bookmarks").select("*");
 
-  if (error) {
-    throw new Error(error);
-  }
+//   if (error) {
+//     throw new Error(error);
+//   }
 
-  return {
-    props: {
-      bookmarks,
-    },
-  };
-}
+//   return {
+//     props: {
+//       bookmarks,
+//     },
+//   };
+// }
 
-export default function Home({ bookmarks }) {
+// ! REMEMBER TO UNHIDE getServerSideProps and pass in { bookmarks } as a prop to Home
+export default function Home({ bookmarks = [] }) {
   const auth = useAuth();
-  console.log(bookmarks);
+  // // ! setting user to false for styling
+  // auth.user = false;
 
   return (
-    <div className="pt-[86px] p-4">
+    <div className="pt-[98px] p-4">
       {!auth.user ? <Landing /> : <Dashboard bookmarks={bookmarks} />}
     </div>
   );

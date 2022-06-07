@@ -1,26 +1,21 @@
 import { useState, useEffect } from "react";
+import BookmarkList from "./BookmarkList";
 
 const Dashboard = ({ bookmarks }) => {
-  console.log(bookmarks);
   return (
     <div>
       {bookmarks.length < 1 ? (
-        <div className="border border-dashed border-black text-center w-44 aspect-square rounded-md">
-          <div>No Bookmarks</div>
-          <div>Get started by creating a new bookmark...</div>
-          <button>+ New</button>
+        <div className="flex flex-col border border-dashed border-black text-center w-44 aspect-square rounded-md p-4">
+          <div className="font-bold">No Bookmarks</div>
+          <div className="mt-auto">
+            <div className="text-xs ">Get started by creating a new bookmark...</div>
+            <button className="hover:bg-black hover:text-white transition-all border border-black p-1 px-2 rounded-md mt-2 text-sm">
+              + Create
+            </button>
+          </div>
         </div>
       ) : (
-        <ul className="flex flex-wrap gap-2">
-          {bookmarks.map((bookmark) => (
-            <li className="p-3 w-44 aspect-square rounded-md bg-white shadow-md" key={bookmark.url}>
-              <a href={bookmark.url} target="_blank">
-                {bookmark.title}
-              </a>
-              <p>{bookmark.notes}</p>
-            </li>
-          ))}
-        </ul>
+        <BookmarkList bookmarks={bookmarks} />
       )}
     </div>
   );
