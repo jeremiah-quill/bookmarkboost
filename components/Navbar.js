@@ -16,7 +16,7 @@ const Navbar = () => {
   }, [user]);
 
   return (
-    <nav className="bg-white flex justify-between fixed top-0 w-full p-5 items-center shadow-md">
+    <nav className="bg-white flex justify-between fixed top-0 w-full p-5 items-center">
       <img src="./bb_svg.svg" alt="logo" />
       <BmQuickAdd />
       {/* <ThemeSwitcher /> */}
