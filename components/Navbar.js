@@ -4,7 +4,7 @@ const Navbar = () => {
   const auth = useAuth();
   return (
     <nav className="bg-white flex justify-between fixed top-0 w-full p-5 items-center shadow-md">
-      <h1 className="text-2xl">BB</h1>
+      <img src="./bb_svg.svg" alt="logo" />
       {!auth.user ? (
         <button onClick={() => auth.signInWithGoogle()}>Login</button>
       ) : (

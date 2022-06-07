@@ -1,9 +1,7 @@
-import styles from "../styles/Home.module.css";
 import Dashboard from "../components/Dashboard";
 import Landing from "../components/Landing";
 import { useAuth } from "../lib/useAuth";
 import { supabase } from "../lib/supabase";
-import { useRouter } from "next/router";
 
 export async function getServerSideProps() {
   const { data: bookmarks, error } = await supabase.from("bookmarks").select("*");
