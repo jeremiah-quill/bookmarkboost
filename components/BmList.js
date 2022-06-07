@@ -1,6 +1,6 @@
 import BmCard from "./BMCard";
 
-const BookmarkList = ({ bookmarks }) => {
+const BmList = ({ bookmarks }) => {
   return (
     <ul className="flex flex-wrap gap-2">
       {bookmarks.map((bookmark) => (
@@ -10,4 +10,4 @@ const BookmarkList = ({ bookmarks }) => {
   );
 };
 
-export default BookmarkList;
+export default BmList;

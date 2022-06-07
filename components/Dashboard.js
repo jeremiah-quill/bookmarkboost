@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import BookmarkList from "./BookmarkList";
+import BookmarkList from "./BmList";
 
 const Dashboard = ({ bookmarks }) => {
   return (
