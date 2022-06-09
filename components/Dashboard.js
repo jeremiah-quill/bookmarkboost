@@ -30,10 +30,8 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="pt-[83px] relative h-full">
-      <div className="absolute top-[83px] pl-10 py-5 w-full bg-slate-300 font-bold z-10">
-        Jeremiah / ALL
-      </div>
+    <div className=" relative h-full">
+      <div className="absolute pl-10 py-5 w-full bg-slate-300 font-bold z-10">Jeremiah / ALL</div>
       <div className="p-20 bg-slate-200 h-full overflow-y-scroll">
         {bookmarks ? <BmList /> : <SkeletonBm />}
       </div>
