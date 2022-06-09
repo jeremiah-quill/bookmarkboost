@@ -1,27 +1,32 @@
+import { useEffect, useContext } from "react";
 import Dashboard from "../components/Dashboard";
 import Landing from "../components/Landing";
 import { useAuth } from "../lib/useAuth";
+import { BookmarkContext, DispatchBookmarkContext } from "../utils/store";
 import { supabase } from "../lib/supabase";
 
-export async function getServerSideProps() {
-  const { data: bookmarks, error } = await supabase.from("bookmarks").select("*");
+// * export functionality of gerServerSideProps and use it in store
+// export { getServerSideProps } from "../utils/store";
 
-  if (error) {
-    throw new Error(error);
-  }
-
-  return {
-    props: {
-      bookmarks,
-    },
-  };
-}
-
-// ! REMEMBER TO UNHIDE getServerSideProps and pass in { bookmarks } as a prop to Home
-export default function Home({ bookmarks = [] }) {
+export default function Home() {
   const auth = useAuth();
-  // // ! setting user to false for styling
-  // auth.user = false;
 
-  return <>{!auth.user ? <Landing /> : <Dashboard bookmarks={bookmarks} />}</>;
+  const dispatchBookmarks = useContext(DispatchBookmarkContext);
+
+  useEffect(() => {
+    if (auth.user) {
+      const userId = auth.user.id;
+      const getBookmarks = async () => {
+        const { data: bookmarks } = await supabase
+          .from("bookmarks")
+          .select("*")
+          .eq("user_id", userId)
+          .order("id", { ascending: true });
+        dispatchBookmarks({ type: "SET_BOOKMARKS", bookmarks: bookmarks });
+      };
+      getBookmarks();
+    }
+  }, [auth]);
+
+  return <>{!auth.user ? <Landing /> : <Dashboard />}</>;
 }

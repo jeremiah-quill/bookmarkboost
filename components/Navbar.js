@@ -1,5 +1,5 @@
 import { useAuth } from "../lib/useAuth.js";
-import { useMemo, useEffect } from "react";
+import { useMemo } from "react";
 import BmQuickAdd from "./BmQuickAdd";
 import ThemeSwitcher from "./ThemeSwitcher";
 
@@ -16,7 +16,7 @@ const Navbar = () => {
   }, [user]);
 
   return (
-    <nav className="bg-white flex justify-between fixed top-0 w-full p-5 items-center">
+    <nav className="bg-white flex justify-between fixed top-0 w-full p-5 items-center z-10">
       <img src="./bb_svg.svg" alt="logo" />
       <BmQuickAdd />
       {/* <ThemeSwitcher /> */}
