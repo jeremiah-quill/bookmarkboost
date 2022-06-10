@@ -1,7 +1,9 @@
 import { useAuth } from "../lib/useAuth.js";
 import { useMemo } from "react";
 import BmQuickAdd from "./BmQuickAdd";
+import Link from "next/link";
 import ThemeSwitcher from "./ThemeSwitcher";
+// import Logo from "../public/";
 
 const Navbar = () => {
   const { signInWithGoogle, user, signOut } = useAuth();
@@ -17,7 +19,11 @@ const Navbar = () => {
 
   return (
     <nav className="bg-white flex justify-between fixed top-0 w-full p-5 items-center z-10">
-      <img src="./bb_svg.svg" alt="logo" />
+      <Link href="/">
+        <a>
+          <img src="/bb_svg.svg" alt="logo" />
+        </a>
+      </Link>
       <BmQuickAdd />
       {/* <ThemeSwitcher /> */}
       <div>
