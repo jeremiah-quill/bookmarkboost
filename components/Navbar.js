@@ -23,7 +23,7 @@ const Navbar = () => {
           <img src="/bb_svg.svg" alt="logo" />
         </a>
       </Link>
-      {/* <BmQuickAdd /> */}
+      <BmQuickAdd />
       {/* <ThemeSwitcher /> */}
       <div>
         {!user ? (

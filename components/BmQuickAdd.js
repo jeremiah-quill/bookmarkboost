@@ -9,13 +9,25 @@ const BmQuickAdd = () => {
 
   const auth = useAuth();
 
-  const fetcher = async (...args) => {
-    console.log("In quick add fetcher");
-    let res = await fetch(...args);
+  // const fetcher = async (...args) => {
+  //   let res = await fetch(...args);
+  //   return res.json();
+  // };
+
+  const fetcher = async (url, token) => {
+    const res = await fetch(url, {
+      method: "GET",
+      headers: new Headers({ "Content-Type": "application/json", token }),
+      credentials: "same-origin",
+    });
+
     return res.json();
   };
 
-  const { data, error, mutate } = useSWR(auth.user ? "/api/bookmarks" : null);
+  const { data, error, mutate } = useSWR(
+    auth.user ? ["/api/bookmarks", auth.session.access_token] : null,
+    fetcher
+  );
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -32,6 +44,7 @@ const BmQuickAdd = () => {
       const { data, error } = await supabase.from("bookmarks").insert([bookmark]).single();
       if (error) {
         // TODO: add toast error handling
+        console.log(error);
         return error;
       }
       return data;

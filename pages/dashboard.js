@@ -17,7 +17,7 @@ export default function DashboardPage() {
   };
 
   const { data: bookmarks } = useSWR(
-    session ? ["/api/bookmarks", session.access_token] : null,
+    session ? ["/api/usersBookmarks", session.access_token] : null,
     fetcher
   );
 

@@ -20,7 +20,7 @@ const BmCard = ({ bookmark }) => {
 
   return (
     <Link href={`/bookmark/${bookmark.temp_id}`}>
-      <a className="">
+      <a>
         <li
           className={` hover:bg-orange-200 hover:scale-[102%] transition-all cursor-pointer p-10 rounded-md bg-white shadow-md relative flex justify-center items-center border-2 border-transparent ${
             flash ? "bg-green-300" : ""

@@ -1,5 +1,6 @@
 import { getAllBookmarks, getBookmarkByTemp_id } from "../../lib/dbAdmin";
 import { supabase } from "../../lib/supabase";
+import { useAuth } from "../../lib/useAuth";
 
 export async function getStaticProps(context) {
   const temp_id = context.params.bookmarkId;
@@ -14,7 +15,7 @@ export async function getStaticProps(context) {
 }
 
 export async function getStaticPaths() {
-  const bookmarks = await getAllBookmarks();
+  const { bookmarks } = await getAllBookmarks();
 
   const paths = bookmarks.map((bookmark) => ({
     params: {
@@ -29,6 +30,13 @@ export async function getStaticPaths() {
 }
 
 export default function BookmarkPage({ bookmark }) {
-  console.log(bookmark);
+  const { user } = useAuth();
+
+  if (!user) return "waiting for user";
+
+  if (user.id !== bookmark.user_id) {
+    return "NOT ALLOWED TO SEE THIS BOOKMARK!";
+  }
+
   return <div>{bookmark.title}</div>;
 }
