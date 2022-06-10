@@ -34,6 +34,7 @@ export async function getStaticPaths() {
 
 export default function BookmarkPage({ bookmark }) {
   const { user } = useAuth();
+  const router = useRouter();
 
   const [urlInput, setUrlInput] = useState(bookmark.url);
   const [titleInput, setTitleInput] = useState(bookmark.title);
@@ -44,8 +45,6 @@ export default function BookmarkPage({ bookmark }) {
   if (user.id !== bookmark.user_id) {
     return "NOT ALLOWED TO SEE THIS BOOKMARK!";
   }
-
-  const router = useRouter();
 
   return (
     <div className="relative">
