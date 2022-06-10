@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { supabase } from "../lib/supabase";
 import { BookmarkContext } from "../utils/store";
-import BmCard from "./BMCard";
+import BmCard from "./BmCard";
 
 const BmList = ({ bookmarks }) => {
   if (bookmarks.length < 1)
