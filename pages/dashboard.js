@@ -1,25 +1,12 @@
-import { supabase } from "../lib/supabase";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
-import { useAuth } from "../lib/useAuth";
-import useSWR from "swr";
+import { useBookmarks } from "../components/useBookmarks";
 import BmList from "../components/BmList";
 
 export default function DashboardPage() {
-  // const auth = useAuth();
+  const { data: bookmarks, error, mutate } = useBookmarks();
 
-  const fetcher = async (...args) => {
-    const res = await fetch(...args);
-    return res.json();
-  };
-
-  const { data: bookmarks, error } = useSWR("/api/bookmarks", fetcher);
+  // if(error) return <ErrorScreen />
 
   if (!bookmarks) return "Loading...";
-
-  // if (!auth.user) {
-  //   return "Loading...";
-  // }
 
   return (
     <div className="bg-blue-500 h-full">

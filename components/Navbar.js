@@ -3,7 +3,6 @@ import { useMemo } from "react";
 import BmQuickAdd from "./BmQuickAdd";
 import Link from "next/link";
 import ThemeSwitcher from "./ThemeSwitcher";
-// import Logo from "../public/";
 
 const Navbar = () => {
   const { signInWithGoogle, user, signOut } = useAuth();
