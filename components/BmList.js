@@ -17,10 +17,12 @@ const BmList = ({ bookmarks }) => {
       </div>
     );
   return (
-    <ul className="flex flex-wrap gap-2 justify-start">
-      {bookmarks.map((bookmark) => (
-        <BmCard key={bookmark.id} bookmark={bookmark} />
-      ))}
+    <ul className="grid sm:grid-cols-4 xl:grid-cols-6">
+      {bookmarks
+        .sort((a, b) => (a.title < b.title ? -1 : 1))
+        .map((bookmark) => (
+          <BmCard key={bookmark.temp_id} bookmark={bookmark} />
+        ))}
     </ul>
   );
 };

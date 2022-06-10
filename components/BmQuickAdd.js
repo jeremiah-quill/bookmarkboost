@@ -1,32 +1,43 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { supabase } from "../lib/supabase";
-
-import { DispatchBookmarkContext } from "../utils/store";
+import { useAuth } from "../lib/useAuth";
+import { useBookmarks } from "./useBookmarks";
+import { v4 as uuidv4 } from "uuid";
 
 const BmQuickAdd = () => {
   const [inputValue, setInputValue] = useState("");
 
-  const dispatchBookmarks = useContext(DispatchBookmarkContext);
+  const { data, error, mutate } = useBookmarks();
+
+  const auth = useAuth();
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const { data, error } = await supabase
-      .from("bookmarks")
-      .insert([{ url: inputValue, title: inputValue, user_id: supabase.auth.user().id }])
-      .single();
 
-    if (error) {
-      console.log(error);
-      return;
-    }
+    // * add in temp_id to use for when we loop over bookmarks in BmList since we will be mutating them locally before response comes back from DB
+    const newBookmark = {
+      url: inputValue,
+      title: inputValue,
+      user_id: auth.user.id,
+      temp_id: uuidv4(),
+    };
 
-    if (!data) {
-      console.log("loading");
-    }
-    // * if there is data coming back from our insert, add it to the UI
-    if (data) {
-      dispatchBookmarks({ type: "ADD_BOOKMARK", newBookmark: data });
-    }
+    const addBookmark = async (bookmark) => {
+      const { data, error } = await supabase.from("bookmarks").insert([bookmark]).single();
+      if (error) {
+        // TODO: add toast error handling
+        return error;
+      }
+      return data;
+    };
+
+    // attempt the mutation (addBookmark).  If it fails we will roll back the UI.
+    await mutate(addBookmark(newBookmark), {
+      optimisticData: [...data, newBookmark],
+      rollbackOnError: true,
+      populateCache: false,
+      revalidate: true,
+    });
 
     setInputValue("");
   };
