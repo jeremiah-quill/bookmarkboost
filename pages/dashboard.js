@@ -1,15 +1,15 @@
 import { useBookmarks } from "../components/useBookmarks";
 import BmList from "../components/BmList";
+import LoadingCards from "../components/LoadingCards";
 
 export default function DashboardPage() {
   const { data: bookmarks, error, mutate } = useBookmarks();
 
   // if(error) return <ErrorScreen />
-
-  if (!bookmarks) return "Loading...";
+  if (!bookmarks) return <LoadingCards />;
 
   return (
-    <div className="bg-blue-500 h-full">
+    <div className="h-full">
       <BmList bookmarks={bookmarks} />
     </div>
   );

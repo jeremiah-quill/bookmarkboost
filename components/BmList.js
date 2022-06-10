@@ -1,6 +1,3 @@
-import { useContext } from "react";
-import { supabase } from "../lib/supabase";
-import { BookmarkContext } from "../utils/store";
 import BmCard from "./BmCard";
 
 const BmList = ({ bookmarks }) => {
