@@ -3,15 +3,17 @@ import BmCard from "./BmCard";
 const BmList = ({ bookmarks }) => {
   if (bookmarks.length < 1)
     return (
-      <div className="flex flex-col border border-dashed border-black text-center w-44 aspect-square rounded-md p-4 m-auto">
-        <div className="font-bold">No Bookmarks</div>
-        <div className="mt-auto">
-          <div className="text-xs ">Get started by creating a new bookmark...</div>
-          <button className="hover:bg-black hover:text-white transition-all border border-black p-1 px-2 rounded-md mt-2 text-sm">
-            + Create
-          </button>
+      <ul className="grid sm:grid-cols-4 xl:grid-cols-6 gap-2 p-2">
+        <div className="flex flex-col border border-dashed border-black text-center w-44 aspect-square rounded-md p-4">
+          <div className="font-bold">No Bookmarks</div>
+          <div className="mt-auto">
+            <div className="text-xs ">Get started by creating a new bookmark...</div>
+            <button className="hover:bg-black hover:text-white transition-all border border-black p-1 px-2 rounded-md mt-2 text-sm">
+              + Create
+            </button>
+          </div>
         </div>
-      </div>
+      </ul>
     );
   return (
     <ul className="grid sm:grid-cols-4 xl:grid-cols-6 gap-2 p-2">

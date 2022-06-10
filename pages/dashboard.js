@@ -16,13 +16,11 @@ export default function DashboardPage() {
     return res.json();
   };
 
-  const {
-    data: bookmarks,
-    error,
-    mutate,
-  } = useSWR(session ? ["/api/bookmarks", session.access_token] : null, fetcher);
+  const { data: bookmarks } = useSWR(
+    session ? ["/api/bookmarks", session.access_token] : null,
+    fetcher
+  );
 
-  // if(error) return <ErrorScreen />
   if (!user) return "no user...";
   if (!bookmarks) return <LoadingCards />;
 
