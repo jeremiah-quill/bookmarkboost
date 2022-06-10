@@ -1,15 +1,21 @@
 import { useState } from "react";
 import { supabase } from "../lib/supabase";
 import { useAuth } from "../lib/useAuth";
-import { useBookmarks } from "./useBookmarks";
 import { v4 as uuidv4 } from "uuid";
+import useSWR from "swr";
 
 const BmQuickAdd = () => {
   const [inputValue, setInputValue] = useState("");
 
-  const { data, error, mutate } = useBookmarks();
-
   const auth = useAuth();
+
+  const fetcher = async (...args) => {
+    console.log("In quick add fetcher");
+    let res = await fetch(...args);
+    return res.json();
+  };
+
+  const { data, error, mutate } = useSWR(auth.user ? "/api/bookmarks" : null);
 
   const onSubmit = async (e) => {
     e.preventDefault();

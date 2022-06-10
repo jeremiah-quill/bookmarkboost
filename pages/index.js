@@ -6,7 +6,7 @@ export default function Home() {
     <>
       <div>landing</div>
       <div>
-        email: <p>{auth.user?.email}</p>
+        email: <p>{auth?.user?.email}</p>
       </div>
     </>
   );
