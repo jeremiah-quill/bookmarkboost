@@ -2,6 +2,8 @@ import BmList from "../components/BmList";
 import LoadingCards from "../components/LoadingCards";
 import { useAuth } from "../lib/useAuth";
 import useSWR from "swr";
+import { useRouter } from "next/router";
+import Head from "next/head";
 
 export default function DashboardPage() {
   const { user, session } = useAuth();
@@ -21,12 +23,14 @@ export default function DashboardPage() {
     fetcher
   );
 
-  if (!user) return "no user...";
+  // if (!user) return "no user...";
   if (!bookmarks) return <LoadingCards />;
 
   return (
-    <div className="h-full">
-      <BmList bookmarks={bookmarks} />
-    </div>
+    <>
+      <div className="h-full">
+        <BmList bookmarks={bookmarks} />
+      </div>
+    </>
   );
 }
