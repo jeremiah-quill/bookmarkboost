@@ -4,14 +4,31 @@ import { useAuth } from "../lib/useAuth";
 import useSWR from "swr";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import { supabase } from "../lib/supabase";
 
-export default function DashboardPage() {
-  const { user, session } = useAuth();
+export async function getServerSideProps({ req, res }) {
+  const { user: serverUser } = await supabase.auth.api.getUserByCookie(req);
 
-  const fetcher = async (url, token) => {
+  if (!serverUser) {
+    return {
+      redirect: {
+        destination: "/",
+      },
+    };
+  }
+
+  return {
+    props: {
+      serverUser: serverUser,
+    },
+  };
+}
+
+export default function DashboardPage({ serverUser }) {
+  const fetcher = async (url, id) => {
     const res = await fetch(url, {
       method: "GET",
-      headers: new Headers({ "Content-Type": "application/json", token }),
+      headers: new Headers({ "Content-Type": "application/json", id }),
       credentials: "same-origin",
     });
 
@@ -19,11 +36,10 @@ export default function DashboardPage() {
   };
 
   const { data: bookmarks } = useSWR(
-    session ? ["/api/usersBookmarks", session.access_token] : null,
+    serverUser ? ["/api/usersBookmarks", serverUser.id] : null,
     fetcher
   );
 
-  // if (!user) return "no user...";
   if (!bookmarks) return <LoadingCards />;
 
   return (

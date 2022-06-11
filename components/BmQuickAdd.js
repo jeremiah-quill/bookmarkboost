@@ -9,10 +9,10 @@ const BmQuickAdd = () => {
 
   const auth = useAuth();
 
-  const fetcher = async (url, token) => {
+  const fetcher = async (url, id) => {
     const res = await fetch(url, {
       method: "GET",
-      headers: new Headers({ "Content-Type": "application/json", token }),
+      headers: new Headers({ "Content-Type": "application/json", id }),
       credentials: "same-origin",
     });
 
@@ -20,7 +20,7 @@ const BmQuickAdd = () => {
   };
 
   const { data, error, mutate } = useSWR(
-    auth.session ? ["/api/usersBookmarks", auth.session.access_token] : null,
+    auth.user ? ["/api/usersBookmarks", auth.user.id] : null,
     fetcher
   );
 
