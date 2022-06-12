@@ -54,7 +54,7 @@ export default function BookmarkPage({ bookmark }) {
         Go back
       </span>
 
-      <h1 className="text-2xl font-bold text-center mt-10">{bookmark.title}</h1>
+      <h1 className="text-2xl font-bold text-center">{bookmark.title}</h1>
       <div className="z-20 m-5">
         <form className="flex flex-col gap-10 max-w-6xl m-auto">
           <div className="flex flex-col">
@@ -80,7 +80,7 @@ export default function BookmarkPage({ bookmark }) {
             <textarea
               value={notesInput}
               onChange={(e) => setNotesInput(e.target.value)}
-              className=" p-2 rounded-md"
+              className="p-2 rounded-md"
               placeholder="Notes..."
             />
           </div>

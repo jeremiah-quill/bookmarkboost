@@ -7,12 +7,12 @@ import useSWR from "swr";
 const BmQuickAdd = () => {
   const [inputValue, setInputValue] = useState("");
 
-  const auth = useAuth();
+  const { loading, session, user } = useAuth();
 
-  const fetcher = async (url, id) => {
+  const fetcher = async (url, token) => {
     const res = await fetch(url, {
       method: "GET",
-      headers: new Headers({ "Content-Type": "application/json", id }),
+      headers: new Headers({ "Content-Type": "application/json", token }),
       credentials: "same-origin",
     });
 
@@ -20,7 +20,7 @@ const BmQuickAdd = () => {
   };
 
   const { data, error, mutate } = useSWR(
-    auth.user ? ["/api/usersBookmarks", auth.user.id] : null,
+    loading || !session ? null : ["/api/usersBookmarks", session.access_token],
     fetcher
   );
 
@@ -31,7 +31,7 @@ const BmQuickAdd = () => {
     const newBookmark = {
       url: inputValue,
       title: inputValue,
-      user_id: auth.user.id,
+      user_id: user.id,
       temp_id: uuidv4(),
     };
 
