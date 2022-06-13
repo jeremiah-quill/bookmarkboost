@@ -2,6 +2,7 @@ import { useAuth } from "../lib/useAuth";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { supabase } from "../lib/supabase";
+import Link from "next/link";
 
 export default function Home() {
   const { user } = useAuth();
