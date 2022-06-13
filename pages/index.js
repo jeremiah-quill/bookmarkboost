@@ -4,16 +4,7 @@ import Head from "next/head";
 import { supabase } from "../lib/supabase";
 
 export default function Home() {
-  // const { signInWithGoogle } = useAuth();
-
-  const signInWithGoogle = async () => {
-    const { user, session, error } = await supabase.auth.signIn(
-      {
-        provider: "google",
-      },
-      { redirectTo: "http://localhost:3000/dashboard" }
-    );
-  };
+  const { user } = useAuth();
 
   return (
     <>
@@ -32,11 +23,17 @@ export default function Home() {
         <div>
           <h1 className="text-center">Welcome to Bookmark Boost</h1>
 
-          <button
-            className="m-auto block px-2 py-1 bg-black text-white rounded-md"
-            onClick={signInWithGoogle}>
-            Login
-          </button>
+          {user ? (
+            <Link href="/dashboard">
+              <a className="m-auto block px-2 py-1 bg-black text-white rounded-md">Dashboard </a>
+            </Link>
+          ) : (
+            <button
+              className="m-auto block px-2 py-1 bg-black text-white rounded-md"
+              onClick={signInWithGoogle}>
+              Login
+            </button>
+          )}
         </div>
       </div>
     </>
