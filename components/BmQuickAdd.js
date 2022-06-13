@@ -27,6 +27,8 @@ const BmQuickAdd = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
 
+    setInputValue("");
+
     // * add in temp_id to use for when we loop over bookmarks in BmList since we will be mutating them locally before response comes back from DB
     const newBookmark = {
       url: inputValue,
@@ -52,8 +54,6 @@ const BmQuickAdd = () => {
       populateCache: false,
       revalidate: true,
     });
-
-    setInputValue("");
   };
 
   return (
