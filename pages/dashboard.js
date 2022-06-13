@@ -2,10 +2,11 @@ import BmList from "../components/BmList";
 import LoadingCards from "../components/LoadingCards";
 import { useAuth } from "../lib/useAuth";
 import useSWR from "swr";
+import { withProtected } from "../utils/routeProtection";
+import Navbar from "../components/Navbar";
 
 const DashboardPage = () => {
-  // const { session } = useAuth();
-  // const {session} = supabase.auth.
+  const { user, session, loading } = useAuth();
 
   const fetcher = async (url, token) => {
     const res = await fetch(url, {
@@ -17,10 +18,7 @@ const DashboardPage = () => {
     return res.json();
   };
 
-  const { data: bookmarks } = useSWR(
-    !session ? null : ["/api/usersBookmarks", session.access_token],
-    fetcher
-  );
+  const { data: bookmarks } = useSWR(["/api/usersBookmarks", session.access_token], fetcher);
 
   if (!bookmarks) {
     return <LoadingCards />;
@@ -29,10 +27,11 @@ const DashboardPage = () => {
   return (
     <>
       <div className="h-full">
+        <Navbar />
         <BmList bookmarks={bookmarks} />
       </div>
     </>
   );
 };
 
-export default DashboardPage;
+export default withProtected(DashboardPage);

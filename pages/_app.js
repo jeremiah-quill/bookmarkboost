@@ -20,7 +20,7 @@ function MyApp({ Component, pageProps }) {
         <Head>
           <title>Bookmark Boost</title>
         </Head>
-        <Navbar />
+        {/* <Navbar /> */}
         <div className="bg-slate-200 h-full pt-[83px] overflow-y-scroll">
           <Component {...pageProps} />
         </div>
