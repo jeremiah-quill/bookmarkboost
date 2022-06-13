@@ -5,7 +5,7 @@ import { supabase } from "../lib/supabase";
 import Link from "next/link";
 
 export default function Home() {
-  const { signInWithGoogle } = useAuth();
+  const { signInWithGoogle, user } = useAuth();
 
   // const signInWithGoogle = async () => {
   //   const { user, session, error } = await supabase.auth.signIn(
