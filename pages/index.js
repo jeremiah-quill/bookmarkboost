@@ -2,10 +2,18 @@ import { useAuth } from "../lib/useAuth";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { supabase } from "../lib/supabase";
-import Link from "next/link";
 
 export default function Home() {
-  const { user } = useAuth();
+  const { signInWithGoogle } = useAuth();
+
+  // const signInWithGoogle = async () => {
+  //   const { user, session, error } = await supabase.auth.signIn(
+  //     {
+  //       provider: "google",
+  //     },
+  //     { redirectTo: "http://localhost:3000/dashboard" }
+  //   );
+  // };
 
   return (
     <>
