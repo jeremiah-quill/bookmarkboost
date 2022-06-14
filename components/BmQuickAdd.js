@@ -18,7 +18,10 @@ const BmQuickAdd = () => {
     return res.json();
   };
 
-  const { data, mutate } = useSWR(["/api/usersBookmarks", session.access_token], fetcher);
+  const { data, mutate } = useSWR(
+    !session ? null : ["/api/usersBookmarks", session.access_token],
+    fetcher
+  );
 
   const onSubmit = async (e) => {
     e.preventDefault();
