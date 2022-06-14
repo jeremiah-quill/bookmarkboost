@@ -3,8 +3,10 @@ import Navbar from "../components/Navbar";
 import { AuthProvider } from "../lib/useAuth";
 import { SWRConfig } from "swr";
 import Head from "next/head";
+import Toast from "../components/Toast";
 
 import "../styles/globals.css";
+import { ToastProvider } from "../utils/useToast";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -17,14 +19,18 @@ function MyApp({ Component, pageProps }) {
             return res.json();
           },
         }}> */}
-        <Head>
-          <title>Bookmark Boost</title>
-        </Head>
-        {/* <Navbar /> */}
-        <div className="bg-slate-200 h-full pt-[83px] overflow-y-scroll">
-          <Component {...pageProps} />
-        </div>
-        {/* </SWRConfig> */}
+        <ToastProvider>
+          <Head>
+            <title>Bookmark Boost</title>
+          </Head>
+          {/* <Navbar /> */}
+          <div className="bg-slate-200 h-full pt-[83px] overflow-y-scroll">
+            {/* <Component {...pageProps} /> */}
+            <Component {...pageProps} />
+          </div>
+
+          {/* </SWRConfig> */}
+        </ToastProvider>
       </AuthProvider>
     </>
   );

@@ -2,6 +2,7 @@ import { useAuth } from "../lib/useAuth.js";
 import BmQuickAdd from "./BmQuickAdd";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Toast from "./Toast.js";
 
 const Navbar = () => {
   const router = useRouter();
@@ -31,6 +32,8 @@ const Navbar = () => {
           </button>
         </div>
       </div>
+
+      <Toast />
     </nav>
   );
 };

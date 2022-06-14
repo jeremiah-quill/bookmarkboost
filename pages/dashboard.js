@@ -4,6 +4,7 @@ import { useAuth } from "../lib/useAuth";
 import useSWR from "swr";
 import { withProtected } from "../utils/routeProtection";
 import Navbar from "../components/Navbar";
+import Toast from "../components/Toast";
 
 const DashboardPage = () => {
   const { user, session, loading } = useAuth();

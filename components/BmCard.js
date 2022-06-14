@@ -7,10 +7,14 @@ import { BsFillGearFill } from "react-icons/bs";
 import { TiArrowBack } from "react-icons/ti";
 import { AiTwotoneDelete } from "react-icons/ai";
 import { GrConfigure } from "react-icons/gr";
+import Toast from "./Toast";
+import { useToast } from "../utils/useToast";
 
 const BmCard = ({ bookmark }) => {
   const [deleteConfirm, setDeleteConfirm] = useState(false);
   const { session } = useAuth();
+
+  const { showToast } = useToast();
 
   const fetcher = async (url, token) => {
     const res = await fetch(url, {
@@ -47,6 +51,7 @@ const BmCard = ({ bookmark }) => {
   };
   const copyURL = (e) => {
     e.preventDefault();
+    showToast("success", 3000, "Copied to clipboard");
     navigator.clipboard.writeText(bookmark.url);
   };
 
