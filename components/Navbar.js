@@ -4,9 +4,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 const Navbar = () => {
-  const { user, signOut } = useAuth();
-
   const router = useRouter();
+  const { user, signOut } = useAuth();
 
   const handleSignOut = () => {
     signOut();
@@ -14,7 +13,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white flex fixed top-0 w-full p-5 items-center z-10">
+    <nav className="bg-white flex fixed top-0 w-full px-5 py-2 items-center z-10">
       <Link href="/">
         <a>
           <img src="/bb_svg.svg" alt="logo" />
