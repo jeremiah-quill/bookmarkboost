@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { supabase } from "../lib/supabase";
 import { useAuth } from "../lib/useAuth";
 import { v4 as uuidv4 } from "uuid";
 import useSWR from "swr";
+import { newBookmark } from "../lib/dbAdmin";
 
 const BmQuickAdd = () => {
   const [inputValue, setInputValue] = useState("");
-  const { loading, session, user } = useAuth();
+  const { session, user } = useAuth();
 
   const fetcher = async (url, token) => {
     const res = await fetch(url, {
@@ -18,35 +18,21 @@ const BmQuickAdd = () => {
     return res.json();
   };
 
-  const { data, error, mutate } = useSWR(
-    loading || !session ? null : ["/api/usersBookmarks", session.access_token],
-    fetcher
-  );
+  const { data, mutate } = useSWR(["/api/usersBookmarks", session.access_token], fetcher);
 
   const onSubmit = async (e) => {
     e.preventDefault();
     setInputValue("");
 
-    // * add in temp_id to use for when we loop over bookmarks in BmList since we will be mutating them locally before response comes back from DB
-    const newBookmark = {
+    const bookmark = {
       url: inputValue,
       title: inputValue,
       user_id: user.id,
       temp_id: uuidv4(),
     };
 
-    const addBookmark = async (bookmark) => {
-      const { data, error } = await supabase.from("bookmarks").insert([bookmark]).single();
-      if (error) {
-        // TODO: add toast error handling
-        console.log(error);
-        return error;
-      }
-      return data;
-    };
-
-    await mutate(addBookmark(newBookmark), {
-      optimisticData: [...data, newBookmark],
+    await mutate(newBookmark(bookmark), {
+      optimisticData: [...data, bookmark],
       rollbackOnError: true,
       populateCache: false,
       revalidate: true,
