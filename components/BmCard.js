@@ -3,15 +3,11 @@ import { supabase } from "../lib/supabase";
 import { updateTitle } from "../lib/dbAdmin";
 import Link from "next/link";
 import useSWR from "swr";
-import { mutate } from "swr";
 import { useAuth } from "../lib/useAuth";
-import { makePublicRouterInstance } from "next/router";
 
 const BmCard = ({ bookmark }) => {
   const [titleInput, setTitleInput] = useState(bookmark.title);
   const { session } = useAuth();
-
-  // const [flash, setFlash] = useState(false);
 
   const fetcher = async (url, token) => {
     const res = await fetch(url, {
@@ -31,12 +27,6 @@ const BmCard = ({ bookmark }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-
-    // setFlash("success");
-    // setTimeout(() => {
-    //   setFlash(false);
-    // }, 100);
-
     updateTitle(titleInput, bookmark.id);
   };
 

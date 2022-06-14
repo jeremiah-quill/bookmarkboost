@@ -6,7 +6,6 @@ import useSWR from "swr";
 
 const BmQuickAdd = () => {
   const [inputValue, setInputValue] = useState("");
-
   const { loading, session, user } = useAuth();
 
   const fetcher = async (url, token) => {
@@ -26,7 +25,6 @@ const BmQuickAdd = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-
     setInputValue("");
 
     // * add in temp_id to use for when we loop over bookmarks in BmList since we will be mutating them locally before response comes back from DB
@@ -47,7 +45,6 @@ const BmQuickAdd = () => {
       return data;
     };
 
-    // attempt the mutation (addBookmark).  If it fails we will roll back the UI.
     await mutate(addBookmark(newBookmark), {
       optimisticData: [...data, newBookmark],
       rollbackOnError: true,
@@ -57,14 +54,14 @@ const BmQuickAdd = () => {
   };
 
   return (
-    <div className="border border-black rounded-md px-2 flex items-center">
-      <form onSubmit={onSubmit}>
+    <div className="border border-black rounded-md px-2">
+      <form className="flex items-center" onSubmit={onSubmit}>
         <input
-          placeholder="Enter URL here..."
+          placeholder="Quick add URL..."
           onChange={(e) => setInputValue(e.target.value)}
           value={inputValue}
         />
-        <button type="submit" className="text-2xl">
+        <button type="submit" className="text-xl">
           +
         </button>
       </form>
