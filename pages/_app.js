@@ -13,13 +13,6 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <AuthProvider>
-        {/* <SWRConfig
-        value={{
-          fetcher: async (...args) => {
-            const res = await fetch(...args);
-            return res.json();
-          },
-        }}> */}
         <ToastProvider>
           <Head>
             <title>Bookmark Boost</title>
@@ -31,17 +24,8 @@ function MyApp({ Component, pageProps }) {
             />
           </Head>
           <div className="h-full pt-[48px] ">
-            {/* <Header />
-            <div className="grid grid-cols-12 h-full auto-cols-min">
-              <div className="lg:col-span-2 md:col-span-3 col-span-4 border-r border-slate-200 p-2">
-                categories
-              </div> */}
-            <div className="h-full lg:col-span-10 md:col-span-9 col-span-8">
-              <Component {...pageProps} />
-            </div>
-            {/* </div> */}
+            <Component {...pageProps} />
           </div>
-          {/* </SWRConfig> */}
         </ToastProvider>
       </AuthProvider>
     </>

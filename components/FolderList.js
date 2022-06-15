@@ -1,7 +1,7 @@
 const FolderList = () => {
   return (
     <nav>
-      <ul>
+      <ul className="flex flex-col gap-2">
         <li>category 1</li>
         <li>category 1</li>
         <li>category 1</li>

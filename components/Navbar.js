@@ -2,12 +2,10 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import { withProtected } from "../utils/routeProtection.js";
 import { useAuth } from "../lib/useAuth.js";
 
 import BmQuickAdd from "./BmQuickAdd";
 import Toast from "./Toast.js";
-import NavbarLoader from "./NavbarLoader";
 
 const Navbar = () => {
   const router = useRouter();
@@ -49,4 +47,4 @@ const Navbar = () => {
   );
 };
 
-export default withProtected(Navbar, NavbarLoader);
+export default Navbar;

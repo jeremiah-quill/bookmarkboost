@@ -60,11 +60,14 @@ const BmCard = ({ bookmark }) => {
 
   // TODO: figure out how to use anchor inside of anchor (outside anchor to bookmark URL, inside anchor to bookmarkId page)
   return !deleteConfirm ? (
-    <a target="_blank" className="max-h-[108px] relative" href={`https://www.${bookmark.url}.com`}>
+    <a
+      target="_blank"
+      className=" relative border border-slate-200 rounded-md overflow-hidden"
+      href={`https://www.${bookmark.url}.com`}>
       <li
         onMouseOver={() => setMove(true)}
         onMouseOut={() => setMove(false)}
-        className={`h-[108px] transition-all cursor-pointer p-4 rounded-md flex flex-col bg-white relative border border-transparent border-slate-200 hover:bg-gray-300`}>
+        className={`h-[108px] transition-all cursor-pointer p-4 flex flex-col bg-white relative hover:bg-gray-300`}>
         <div className="flex justify-between items-center">
           <h2 className="text-2xl">{bookmark.title}</h2>
           <IoIosArrowForward

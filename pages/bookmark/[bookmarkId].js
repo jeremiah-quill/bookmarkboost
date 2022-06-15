@@ -49,7 +49,7 @@ const BookmarkPage = ({ bookmark }) => {
 
   return (
     <DashboardShell>
-      <div className="relative">
+      <div className="relative pt-5">
         <h1 className="text-2xl font-bold text-center">{bookmark.title}</h1>
         <h2 className="text-lg underline text-center">{bookmark.url}</h2>
         <div className="p-2 rounded-md w-full my-2 m-auto max-w-5xl flex">
@@ -65,4 +65,5 @@ const BookmarkPage = ({ bookmark }) => {
   );
 };
 
+// TODO: replace dashboard loader with bookmark page specific loader
 export default withProtected(BookmarkPage, DashboardLoader);

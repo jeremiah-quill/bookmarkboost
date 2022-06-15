@@ -8,6 +8,7 @@ import DashboardLoader from "../components/DashboardLoader";
 import Header from "../components/Header";
 import FolderList from "../components/FolderList";
 import DashboardShell from "../components/DashboardShell";
+import LoaderShell from "../components/LoaderShell";
 
 const DashboardPage = () => {
   const { session } = useAuth();
@@ -25,7 +26,11 @@ const DashboardPage = () => {
   const { data: bookmarks } = useSWR(["/api/usersBookmarks", session.access_token], fetcher);
 
   if (!bookmarks) {
-    return <DashboardLoader />;
+    return (
+      <LoaderShell>
+        <Loader />
+      </LoaderShell>
+    );
   }
 
   return (
