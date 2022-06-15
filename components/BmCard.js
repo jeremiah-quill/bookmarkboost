@@ -62,7 +62,7 @@ const BmCard = ({ bookmark }) => {
   return !deleteConfirm ? (
     <a
       target="_blank"
-      className="border border-slate-200 rounded-md overflow-hidden h-[108px] transition-all cursor-pointer p-4 flex flex-col bg-white relative hover:bg-gray-300"
+      className="border border-slate-200 rounded-md overflow-hidden h-[108px] transition-all cursor-pointer p-4  bg-white relative hover:bg-gray-300"
       href={`https://www.${bookmark.url}.com`}>
       <li
         onMouseOver={() => setMove(true)}
@@ -104,9 +104,9 @@ const BmCard = ({ bookmark }) => {
       </li>
     </a>
   ) : (
-    <div className="relative border border-slate-200 rounded-md overflow-hidden">
+    <div className="border border-slate-200 rounded-md overflow-hidden h-[108px] transition-all cursor-pointer bg-white relative hover:bg-gray-300">
       <li
-        className={`h-[108px] transition-all cursor-pointer rounded-md relative flex overflow-hidden`}>
+        className={`h-full transition-all cursor-pointer rounded-md relative flex overflow-hidden`}>
         <button className="bg-gray-300 flex-1" onClick={() => setDeleteConfirm(false)}>
           Cancel
         </button>
