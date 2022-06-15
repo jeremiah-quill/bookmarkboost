@@ -29,13 +29,15 @@ import { supabase } from "../lib/supabase";
 
 // withProtected checks if the user is not logged in, if not it will reroute to '/login'.
 // (ex:) a logged out user tries to access /account, they will be rerouted to /login.
-export const withProtected = (WrappedComponent) => {
+export const withProtected = (WrappedComponent, Loader) => {
   return (props) => {
     const router = useRouter();
     const { user, session, loading } = useAuth();
 
     if (loading) {
-      return <LoadingCards />;
+      // return <LoadingCards />;
+      return <Loader />;
+      // return <div>loading...</div>;
     }
 
     if (!user) {

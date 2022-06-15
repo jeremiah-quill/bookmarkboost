@@ -1,11 +1,12 @@
-import { getAllBookmarks, getBookmarkByTemp_id } from "../../lib/dbAdmin";
-import { supabase } from "../../lib/supabase";
-import { useAuth } from "../../lib/useAuth";
 import { useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/router";
+
+import { getAllBookmarks, getBookmarkByTemp_id } from "../../lib/dbAdmin";
+import { useAuth } from "../../lib/useAuth";
 import { withProtected } from "../../utils/routeProtection";
-import Navbar from "../../components/Navbar";
+
+import DashboardLoader from "../../components/DashboardLoader";
+import DashboardShell from "../../components/DashboardShell";
 
 export async function getStaticProps(context) {
   const temp_id = context.params.bookmarkId;
@@ -47,8 +48,7 @@ const BookmarkPage = ({ bookmark }) => {
   }
 
   return (
-    <>
-      <Navbar />
+    <DashboardShell>
       <div className="relative">
         <h1 className="text-2xl font-bold text-center">{bookmark.title}</h1>
         <h2 className="text-lg underline text-center">{bookmark.url}</h2>
@@ -60,40 +60,9 @@ const BookmarkPage = ({ bookmark }) => {
             placeholder="Notes..."
           />
         </div>
-        {/* <div className="z-20 m-5">
-          <form className="flex flex-col gap-10 max-w-6xl m-auto">
-            <div className="flex flex-col">
-              <label className="mb-2 font-bold">URL</label>
-              <input
-                value={urlInput}
-                onChange={(e) => setUrlInput(e.target.value)}
-                className="bg-transparent p-2 rounded-md"
-                placeholder="URL..."
-              />
-            </div>
-            <div className="flex flex-col">
-              <label className="mb-2 font-bold">Title</label>
-              <input
-                value={titleInput}
-                onChange={(e) => setTitleInput(e.target.value)}
-                className="bg-transparent p-2 rounded-md"
-                placeholder="Title..."
-              />
-            </div>
-            <div className="flex flex-col">
-              <label className="mb-2 font-bold">Notes</label>
-              <textarea
-                value={notesInput}
-                onChange={(e) => setNotesInput(e.target.value)}
-                className="bg-transparent p-2 rounded-md"
-                placeholder="Notes..."
-              />
-            </div>
-          </form>
-        </div> */}
       </div>
-    </>
+    </DashboardShell>
   );
 };
 
-export default withProtected(BookmarkPage);
+export default withProtected(BookmarkPage, DashboardLoader);

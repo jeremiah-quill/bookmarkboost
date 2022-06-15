@@ -1,9 +1,13 @@
-import { useAuth } from "../lib/useAuth.js";
-import BmQuickAdd from "./BmQuickAdd";
+import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+
+import { withProtected } from "../utils/routeProtection.js";
+import { useAuth } from "../lib/useAuth.js";
+
+import BmQuickAdd from "./BmQuickAdd";
 import Toast from "./Toast.js";
-import { useState } from "react";
+import NavbarLoader from "./NavbarLoader";
 
 const Navbar = () => {
   const router = useRouter();
@@ -19,26 +23,19 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="px-5 text-xl flex fixed top-0 w-full items-center z-10 border-b border-slate-200">
-      <Link href="/">
-        {/* <a><img src="/bb_svg.svg" alt="logo" /></a> */}
-        <a>
-          <h1 className="py-2 font-bold text-2xl w-[180px] border-r border-slate-200">
-            {" "}
-            Bookmark Boost
-          </h1>
-        </a>
-      </Link>
-      <Link className="" href="/dashboard">
-        <a className="mx-5">Dashboard</a>
-      </Link>
+    <div className="flex items-center w-full justify-between">
+      <nav>
+        <Link href="/dashboard">
+          <a>Dashboard</a>
+        </Link>
+      </nav>
       <BmQuickAdd />
-      <div className="ml-auto relative">
+      <div className="relative">
         <button className="" onClick={() => setSettingsMenu((curr) => !curr)}>
           <img className="rounded-full w-7 inline" src={user.user_metadata.picture} />
         </button>
         {!settingsMenu ? null : (
-          <nav className="absolute -left-10 bg-white border border-slate-200 mt-2 rounded-md">
+          <nav className="absolute -left-10 bg-white border border-slate-200 mt-2 rounded-md z-50">
             <ul>
               <button onClick={handleSignOut}>
                 <li className="hover:bg-gray-300 px-2 rounded-md transition-all">Logout</li>
@@ -48,8 +45,8 @@ const Navbar = () => {
         )}
       </div>
       <Toast />
-    </nav>
+    </div>
   );
 };
 
-export default Navbar;
+export default withProtected(Navbar, NavbarLoader);

@@ -1,15 +1,15 @@
 import { useState } from "react";
-import { supabase } from "../lib/supabase";
 import Link from "next/link";
 import useSWR from "swr";
-import { useAuth } from "../lib/useAuth";
-import { BsFillGearFill } from "react-icons/bs";
-import { TiArrowBack } from "react-icons/ti";
-import { AiTwotoneDelete } from "react-icons/ai";
-import { GrConfigure } from "react-icons/gr";
-import Toast from "./Toast";
+
 import { useToast } from "../utils/useToast";
+import { supabase } from "../lib/supabase";
+import { useAuth } from "../lib/useAuth";
+
+import { AiTwotoneDelete } from "react-icons/ai";
 import { IoIosArrowForward } from "react-icons/io";
+import { TbCopy } from "react-icons/tb";
+import { IoIosOptions } from "react-icons/io";
 
 const BmCard = ({ bookmark }) => {
   const [deleteConfirm, setDeleteConfirm] = useState(false);
@@ -60,7 +60,7 @@ const BmCard = ({ bookmark }) => {
 
   // TODO: figure out how to use anchor inside of anchor (outside anchor to bookmark URL, inside anchor to bookmarkId page)
   return !deleteConfirm ? (
-    <a target="_blank" className="max-h-[108px]" href={`https://www.${bookmark.url}.com`}>
+    <a target="_blank" className="max-h-[108px] relative" href={`https://www.${bookmark.url}.com`}>
       <li
         onMouseOver={() => setMove(true)}
         onMouseOut={() => setMove(false)}
@@ -72,28 +72,29 @@ const BmCard = ({ bookmark }) => {
             className={`transition-all relative ${move && "translate-x-[5px]"}`}
           />
         </div>
-        <div className="flex gap-2 items-start mt-auto">
+        <div className="flex gap-2 items-middle mt-auto">
           <button onClick={(e) => showDeleteConfirm(e)}>
             <AiTwotoneDelete
               className="transition-all hover:scale-[110%]"
               color="red"
-              size={"1.2rem"}
+              size={"1.25rem"}
               style={{ verticalAlign: "middle" }}
             />
           </button>
           <Link onClick={(e) => e.preventDefault()} href={`/bookmark/${bookmark.temp_id}`}>
             <a className="block">
-              <BsFillGearFill
-                className="transition-all hover:scale-[110%] relative top-[1px]"
-                size="1.08rem"
+              <IoIosOptions
+                className="transition-all hover:scale-[110%]"
+                size="1.25rem"
                 style={{ verticalAlign: "middle" }}
               />
             </a>
           </Link>{" "}
           <button onClick={(e) => copyURL(e)}>
-            <img
-              src="./copy.svg"
-              className="transition-all hover:scale-[110%] relative top-[2px] w-[13px]"
+            <TbCopy
+              className="transition-all hover:scale-[110%]"
+              size="1.25rem"
+              style={{ verticalAlign: "middle" }}
             />
           </button>
         </div>

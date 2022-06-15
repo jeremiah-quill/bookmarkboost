@@ -7,6 +7,7 @@ import Toast from "../components/Toast";
 
 import "../styles/globals.css";
 import { ToastProvider } from "../utils/useToast";
+import Header from "../components/Header";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -29,8 +30,16 @@ function MyApp({ Component, pageProps }) {
               rel="stylesheet"
             />
           </Head>
-          <div className="h-full pt-[48px] overflow-y-scroll">
-            <Component {...pageProps} />
+          <div className="h-full pt-[48px] ">
+            {/* <Header />
+            <div className="grid grid-cols-12 h-full auto-cols-min">
+              <div className="lg:col-span-2 md:col-span-3 col-span-4 border-r border-slate-200 p-2">
+                categories
+              </div> */}
+            <div className="h-full lg:col-span-10 md:col-span-9 col-span-8">
+              <Component {...pageProps} />
+            </div>
+            {/* </div> */}
           </div>
           {/* </SWRConfig> */}
         </ToastProvider>

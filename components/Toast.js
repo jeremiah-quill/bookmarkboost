@@ -2,7 +2,6 @@ import { useToast } from "../utils/useToast";
 
 const Toast = () => {
   const { toast } = useToast();
-  // const toast = { showing: true, message: "Copied to clipboard" };
 
   if (toast.showing)
     return (
