@@ -62,12 +62,12 @@ const BmCard = ({ bookmark }) => {
   return !deleteConfirm ? (
     <a
       target="_blank"
-      className=" relative border border-slate-200 rounded-md overflow-hidden"
+      className="border border-slate-200 rounded-md overflow-hidden h-[108px] transition-all cursor-pointer p-4 flex flex-col bg-white relative hover:bg-gray-300"
       href={`https://www.${bookmark.url}.com`}>
       <li
         onMouseOver={() => setMove(true)}
         onMouseOut={() => setMove(false)}
-        className={`h-[108px] transition-all cursor-pointer p-4 flex flex-col bg-white relative hover:bg-gray-300`}>
+        className={`flex flex-col h-full`}>
         <div className="flex justify-between items-center">
           <h2 className="text-2xl">{bookmark.title}</h2>
           <IoIosArrowForward
@@ -104,15 +104,17 @@ const BmCard = ({ bookmark }) => {
       </li>
     </a>
   ) : (
-    <li
-      className={`h-[108px] transition-all cursor-pointer rounded-md relative flex overflow-hidden`}>
-      <button className="bg-gray-300 flex-1" onClick={() => setDeleteConfirm(false)}>
-        Cancel
-      </button>
-      <button className="bg-red-300 flex-1" onClick={() => handleRemove(bookmark.temp_id)}>
-        Confirm
-      </button>
-    </li>
+    <div className="relative border border-slate-200 rounded-md overflow-hidden">
+      <li
+        className={`h-[108px] transition-all cursor-pointer rounded-md relative flex overflow-hidden`}>
+        <button className="bg-gray-300 flex-1" onClick={() => setDeleteConfirm(false)}>
+          Cancel
+        </button>
+        <button className="bg-red-300 flex-1" onClick={() => handleRemove(bookmark.temp_id)}>
+          Confirm
+        </button>
+      </li>
+    </div>
   );
 };
 

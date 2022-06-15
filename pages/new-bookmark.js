@@ -30,7 +30,7 @@ const NewBookmark = () => {
     // TODO: add error handling
     // TODO: refactor to use mutations
     const response = await newBookmark(bookmark);
-    router.push("/dashboard");
+    router.replace("/dashboard");
   };
 
   return (

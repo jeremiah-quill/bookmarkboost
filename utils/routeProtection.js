@@ -8,6 +8,8 @@ export const withProtected = (WrappedComponent, Loader) => {
     const router = useRouter();
     const { user, session, loading } = useAuth();
 
+    // const loading = true;
+
     if (loading) {
       return (
         <LoaderShell>
