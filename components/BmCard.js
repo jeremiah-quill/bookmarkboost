@@ -9,7 +9,7 @@ import { AiTwotoneDelete } from "react-icons/ai";
 import { GrConfigure } from "react-icons/gr";
 import Toast from "./Toast";
 import { useToast } from "../utils/useToast";
-import { MdOutlineKeyboardArrowRight } from "react-icons/md";
+import { IoIosArrowForward } from "react-icons/io";
 
 const BmCard = ({ bookmark }) => {
   const [deleteConfirm, setDeleteConfirm] = useState(false);
@@ -60,15 +60,15 @@ const BmCard = ({ bookmark }) => {
 
   // TODO: figure out how to use anchor inside of anchor (outside anchor to bookmark URL, inside anchor to bookmarkId page)
   return !deleteConfirm ? (
-    <a target="_blank" href={`https://www.${bookmark.url}.com`}>
+    <a target="_blank" className="max-h-[108px]" href={`https://www.${bookmark.url}.com`}>
       <li
         onMouseOver={() => setMove(true)}
         onMouseOut={() => setMove(false)}
         className={`h-[108px] transition-all cursor-pointer p-4 rounded-md flex flex-col bg-white relative border border-transparent border-slate-200 hover:bg-gray-300`}>
-        <div className="flex justify-between">
-          <h2 className="">{bookmark.title}</h2>
-          <MdOutlineKeyboardArrowRight
-            size="1.5rem"
+        <div className="flex justify-between items-center">
+          <h2 className="text-2xl">{bookmark.title}</h2>
+          <IoIosArrowForward
+            size="1rem"
             className={`transition-all relative ${move && "translate-x-[5px]"}`}
           />
         </div>

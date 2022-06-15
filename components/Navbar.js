@@ -19,10 +19,14 @@ const Navbar = () => {
   };
 
   return (
-    <nav className=" flex fixed top-0 w-full px-5 py-2 items-center z-10 border-b border-slate-200">
+    <nav className="px-5 text-xl flex fixed top-0 w-full items-center z-10 border-b border-slate-200">
       <Link href="/">
+        {/* <a><img src="/bb_svg.svg" alt="logo" /></a> */}
         <a>
-          <img src="/bb_svg.svg" alt="logo" />
+          <h1 className="py-2 font-bold text-2xl w-[180px] border-r border-slate-200">
+            {" "}
+            Bookmark Boost
+          </h1>
         </a>
       </Link>
       <Link className="" href="/dashboard">
@@ -37,7 +41,7 @@ const Navbar = () => {
           <nav className="absolute -left-10 bg-white border border-slate-200 mt-2 rounded-md">
             <ul>
               <button onClick={handleSignOut}>
-                <li className="hover:bg-gray-300 p-2 rounded-md transition-all">Logout</li>
+                <li className="hover:bg-gray-300 px-2 rounded-md transition-all">Logout</li>
               </button>
             </ul>
           </nav>

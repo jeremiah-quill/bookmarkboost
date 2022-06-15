@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const BmList = ({ bookmarks }) => {
   return (
-    <ul className="grid sm:grid-cols-4 xl:grid-cols-6 gap-2 p-2">
+    <ul className="grid sm:grid-cols-3 xl:grid-cols-4 gap-2 p-2 flex-1 auto-rows-min	">
       <NewBmCard />
       {bookmarks
         .sort((a, b) => (a.title < b.title ? -1 : 1))

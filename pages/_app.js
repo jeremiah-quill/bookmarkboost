@@ -22,8 +22,14 @@ function MyApp({ Component, pageProps }) {
         <ToastProvider>
           <Head>
             <title>Bookmark Boost</title>
+            <link rel="preconnect" href="https://fonts.googleapis.com" />
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+            <link
+              href="https://fonts.googleapis.com/css2?family=Dongle:wght@300&display=swap"
+              rel="stylesheet"
+            />
           </Head>
-          <div className="h-full pt-[83px] overflow-y-scroll">
+          <div className="h-full pt-[48px] overflow-y-scroll">
             <Component {...pageProps} />
           </div>
           {/* </SWRConfig> */}

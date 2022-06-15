@@ -32,8 +32,16 @@ const DashboardPage = () => {
   return (
     <>
       <div className="h-full">
+        {/* <div className="grid-cols-2">
+
+        </div> */}
         <Navbar />
-        <BmList bookmarks={bookmarks} />
+        <div className="flex h-full">
+          <div className="w-[200px] pl-5 bg-[rgb(250 250 250)] border-r border-slate-200">
+            sidebar
+          </div>
+          <BmList bookmarks={bookmarks} />
+        </div>
       </div>
     </>
   );

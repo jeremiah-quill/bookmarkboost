@@ -47,6 +47,7 @@ const BmQuickAdd = () => {
       <form className="flex items-center" onSubmit={onSubmit}>
         <input
           placeholder="Quick add URL..."
+          className=""
           onChange={(e) => setInputValue(e.target.value)}
           value={inputValue}
         />
