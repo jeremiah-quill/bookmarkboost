@@ -9,9 +9,12 @@ import { AiTwotoneDelete } from "react-icons/ai";
 import { GrConfigure } from "react-icons/gr";
 import Toast from "./Toast";
 import { useToast } from "../utils/useToast";
+import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 
 const BmCard = ({ bookmark }) => {
   const [deleteConfirm, setDeleteConfirm] = useState(false);
+  const [move, setMove] = useState(false);
+
   const { session } = useAuth();
 
   const { showToast } = useToast();
@@ -59,27 +62,41 @@ const BmCard = ({ bookmark }) => {
   return !deleteConfirm ? (
     <a target="_blank" href={`https://www.${bookmark.url}.com`}>
       <li
-        className={`h-[108px] transition-all cursor-pointer p-10 rounded-md bg-white relative flex justify-center items-center border border-transparent border-slate-400 hover:border-green-400`}>
-        <div className="flex justify-between w-full p-2 absolute top-0">
-          <div className="flex items-center gap-2">
-            <button onClick={(e) => showDeleteConfirm(e)}>
-              <AiTwotoneDelete
-                className="transition-all hover:scale-[110%]"
-                color="red"
-                size={"1.15rem"}
+        onMouseOver={() => setMove(true)}
+        onMouseOut={() => setMove(false)}
+        className={`h-[108px] transition-all cursor-pointer p-4 rounded-md flex flex-col bg-white relative border border-transparent border-slate-200 hover:bg-gray-300`}>
+        <div className="flex justify-between">
+          <h2 className="">{bookmark.title}</h2>
+          <MdOutlineKeyboardArrowRight
+            size="1.5rem"
+            className={`transition-all relative ${move && "translate-x-[5px]"}`}
+          />
+        </div>
+        <div className="flex gap-2 items-start mt-auto">
+          <button onClick={(e) => showDeleteConfirm(e)}>
+            <AiTwotoneDelete
+              className="transition-all hover:scale-[110%]"
+              color="red"
+              size={"1.2rem"}
+              style={{ verticalAlign: "middle" }}
+            />
+          </button>
+          <Link onClick={(e) => e.preventDefault()} href={`/bookmark/${bookmark.temp_id}`}>
+            <a className="block">
+              <BsFillGearFill
+                className="transition-all hover:scale-[110%] relative top-[1px]"
+                size="1.08rem"
+                style={{ verticalAlign: "middle" }}
               />
-            </button>
-            <Link onClick={(e) => e.preventDefault()} href={`/bookmark/${bookmark.temp_id}`}>
-              <a className="block">
-                <BsFillGearFill className="transition-all hover:scale-[110%]" size="1rem" />
-              </a>
-            </Link>
-          </div>
+            </a>
+          </Link>{" "}
           <button onClick={(e) => copyURL(e)}>
-            <img src="./copy.svg" className="transition-all hover:scale-[110%]" />
+            <img
+              src="./copy.svg"
+              className="transition-all hover:scale-[110%] relative top-[2px] w-[13px]"
+            />
           </button>
         </div>
-        <h2>{bookmark.title}</h2>
       </li>
     </a>
   ) : (

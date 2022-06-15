@@ -9,6 +9,10 @@ import Toast from "../components/Toast";
 const DashboardPage = () => {
   const { user, session, loading } = useAuth();
 
+  // console.log("user", user);
+
+  // console.log("session", session);
+
   const fetcher = async (url, token) => {
     const res = await fetch(url, {
       method: "GET",
