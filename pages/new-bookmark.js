@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 import { useAuth } from "../lib/useAuth";
 import { newBookmark } from "../lib/dbAdmin";
@@ -9,6 +10,7 @@ import DashboardShell from "../components/DashboardShell";
 
 const NewBookmark = () => {
   const { user } = useAuth();
+  const router = useRouter();
 
   const [urlInput, setUrlInput] = useState("");
   const [titleInput, setTitleInput] = useState("");
@@ -28,6 +30,7 @@ const NewBookmark = () => {
     // TODO: add error handling
     // TODO: refactor to use mutations
     const response = await newBookmark(bookmark);
+    router.push("/dashboard");
   };
 
   return (
