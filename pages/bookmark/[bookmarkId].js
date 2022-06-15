@@ -51,14 +51,23 @@ const BookmarkPage = ({ bookmark }) => {
       <Navbar />
       <div className="relative">
         <h1 className="text-2xl font-bold text-center">{bookmark.title}</h1>
-        <div className="z-20 m-5">
+        <h2 className="text-lg underline text-center">{bookmark.url}</h2>
+        <div className="p-2 rounded-md w-full my-2 m-auto max-w-5xl flex">
+          <textarea
+            value={notesInput}
+            onChange={(e) => setNotesInput(e.target.value)}
+            className="w-full p-3 rounded-md"
+            placeholder="Notes..."
+          />
+        </div>
+        {/* <div className="z-20 m-5">
           <form className="flex flex-col gap-10 max-w-6xl m-auto">
             <div className="flex flex-col">
               <label className="mb-2 font-bold">URL</label>
               <input
                 value={urlInput}
                 onChange={(e) => setUrlInput(e.target.value)}
-                className="p-2 rounded-md"
+                className="bg-transparent p-2 rounded-md"
                 placeholder="URL..."
               />
             </div>
@@ -67,7 +76,7 @@ const BookmarkPage = ({ bookmark }) => {
               <input
                 value={titleInput}
                 onChange={(e) => setTitleInput(e.target.value)}
-                className=" p-2 rounded-md"
+                className="bg-transparent p-2 rounded-md"
                 placeholder="Title..."
               />
             </div>
@@ -76,12 +85,12 @@ const BookmarkPage = ({ bookmark }) => {
               <textarea
                 value={notesInput}
                 onChange={(e) => setNotesInput(e.target.value)}
-                className="p-2 rounded-md"
+                className="bg-transparent p-2 rounded-md"
                 placeholder="Notes..."
               />
             </div>
           </form>
-        </div>
+        </div> */}
       </div>
     </>
   );

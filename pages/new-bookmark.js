@@ -61,7 +61,11 @@ const NewBookmark = () => {
               placeholder="Notes..."
             />
           </div>
-          <button type="submit">Save</button>
+          <button
+            type="submit"
+            className="border border-slate-400 w-16 m-auto rounded-md text-slate-600">
+            Save
+          </button>
         </form>
       </div>
     </>

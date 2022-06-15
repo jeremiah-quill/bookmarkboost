@@ -59,20 +59,24 @@ const BmCard = ({ bookmark }) => {
   return !deleteConfirm ? (
     <a target="_blank" href={`https://www.${bookmark.url}.com`}>
       <li
-        className={`h-[108px] transition-all cursor-pointer p-10 rounded-md bg-white hover:border-green-400 relative flex justify-center items-center border-2 border-transparent`}>
+        className={`h-[108px] transition-all cursor-pointer p-10 rounded-md bg-white relative flex justify-center items-center border border-transparent border-slate-400 hover:border-green-400`}>
         <div className="flex justify-between w-full p-2 absolute top-0">
           <div className="flex items-center gap-2">
             <button onClick={(e) => showDeleteConfirm(e)}>
-              <AiTwotoneDelete color="red" size={"1.5rem"} />
+              <AiTwotoneDelete
+                className="transition-all hover:scale-[110%]"
+                color="red"
+                size={"1.15rem"}
+              />
             </button>
             <Link onClick={(e) => e.preventDefault()} href={`/bookmark/${bookmark.temp_id}`}>
               <a className="block">
-                <BsFillGearFill size="1.25rem" />
+                <BsFillGearFill className="transition-all hover:scale-[110%]" size="1rem" />
               </a>
             </Link>
           </div>
           <button onClick={(e) => copyURL(e)}>
-            <img src="./copy.svg" />
+            <img src="./copy.svg" className="transition-all hover:scale-[110%]" />
           </button>
         </div>
         <h2>{bookmark.title}</h2>

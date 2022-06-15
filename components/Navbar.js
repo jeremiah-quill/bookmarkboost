@@ -14,7 +14,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white flex fixed top-0 w-full px-5 py-2 items-center z-10">
+    <nav className="bg-white flex fixed top-0 w-full px-5 py-2 items-center z-10 border-b border-slate-400">
       <Link href="/">
         <a>
           <img src="/bb_svg.svg" alt="logo" />

@@ -43,15 +43,15 @@ const BmQuickAdd = () => {
   };
 
   return (
-    <div className="border border-black rounded-md px-2">
+    <div className="border border-slate-400 rounded-md pl-2">
       <form className="flex items-center" onSubmit={onSubmit}>
         <input
           placeholder="Quick add URL..."
           onChange={(e) => setInputValue(e.target.value)}
           value={inputValue}
         />
-        <button type="submit" className="text-xl">
-          +
+        <button type="submit" className="text-md border-l border-slate-400 text-slate-600 px-2">
+          Save
         </button>
       </form>
     </div>
