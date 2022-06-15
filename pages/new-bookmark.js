@@ -1,11 +1,10 @@
-import Navbar from "../components/Navbar";
 import { useState } from "react";
-import { withProtected } from "../utils/routeProtection";
+
 import { useAuth } from "../lib/useAuth";
 import { newBookmark } from "../lib/dbAdmin";
+import { withProtected } from "../utils/routeProtection";
+
 import DashboardLoader from "../components/DashboardLoader";
-import Header from "../components/Header";
-import FolderList from "../components/FolderList";
 import DashboardShell from "../components/DashboardShell";
 
 const NewBookmark = () => {
