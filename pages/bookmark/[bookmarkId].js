@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { FiEdit } from "react-icons/fi";
 
-import { getAllBookmarks, getBookmarkByTemp_id } from "../../lib/dbAdmin";
+import { getAllBookmarks, getBookmarkByTemp_id, updateTitle, updateUrl } from "../../lib/dbAdmin";
 import { useAuth } from "../../lib/useAuth";
 import { withProtected } from "../../utils/routeProtection";
 
 import DashboardLoader from "../../components/DashboardLoader";
 import DashboardShell from "../../components/DashboardShell";
+import EditableField from "../../components/EditableField";
 
 export async function getStaticProps(context) {
   const temp_id = context.params.bookmarkId;
@@ -17,6 +19,7 @@ export async function getStaticProps(context) {
     props: {
       bookmark: bookmark,
     },
+    revalidate: 1,
   };
 }
 
@@ -31,27 +34,51 @@ export async function getStaticPaths() {
 
   return {
     paths: paths,
-    fallback: false,
+    fallback: "blocking",
   };
 }
 
 const BookmarkPage = ({ bookmark }) => {
-  const { user } = useAuth();
+  const { user, session } = useAuth();
   const router = useRouter();
 
-  const [urlInput, setUrlInput] = useState(bookmark.url);
-  const [titleInput, setTitleInput] = useState(bookmark.title);
-  const [notesInput, setNotesInput] = useState(bookmark.notes || "");
+  const [syncedBm, setSyncedBm] = useState(bookmark);
+
+  const [urlInput, setUrlInput] = useState(syncedBm.url);
+  const [titleInput, setTitleInput] = useState(syncedBm.title);
+  const [notesInput, setNotesInput] = useState(syncedBm.notes || "");
 
   if (user.id !== bookmark.user_id) {
     return "NOT ALLOWED TO SEE THIS BOOKMARK!";
   }
 
+  const updateBmTitle = async (title, id) => {
+    const updated = await updateTitle(title, id);
+    setSyncedBm(updated);
+  };
+
+  const updateBmUrl = async (url, id) => {
+    const updated = await updateUrl(url, id);
+    setSyncedBm(updated);
+  };
+
   return (
     <DashboardShell>
       <div className="relative pt-5">
-        <h1 className="text-2xl font-bold text-center">{bookmark.title}</h1>
-        <h2 className="text-lg underline text-center">{bookmark.url}</h2>
+        <EditableField
+          value={syncedBm.title}
+          editableId={syncedBm.id}
+          onSubmit={updateBmTitle}
+          textSize={"text-2xl"}>
+          <h1 className="text-2xl font-bold text-center">{syncedBm.title}</h1>
+        </EditableField>
+        <EditableField
+          value={syncedBm.url}
+          editableId={syncedBm.id}
+          onSubmit={updateBmUrl}
+          textSize={"text-lg"}>
+          <h2 className="text-lg font-bold text-center">{syncedBm.url}</h2>
+        </EditableField>
         <div className="p-2 rounded-md w-full my-2 m-auto max-w-5xl flex">
           <textarea
             value={notesInput}

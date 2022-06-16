@@ -12,8 +12,6 @@ const Navbar = () => {
   const { user, signOut } = useAuth();
   const [settingsMenu, setSettingsMenu] = useState(false);
 
-  console.log(user);
-
   const handleSignOut = () => {
     setSettingsMenu(false);
     signOut();
