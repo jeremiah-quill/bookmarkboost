@@ -5,8 +5,8 @@ import { useAuth } from "../lib/useAuth";
 import { newBookmark } from "../lib/dbAdmin";
 import { withProtected } from "../utils/routeProtection";
 
-import DashboardLoader from "../components/DashboardLoader";
 import DashboardShell from "../components/DashboardShell";
+import NewBookmarkLoader from "../components/NewBookmarkLoader";
 
 const NewBookmark = () => {
   const { user } = useAuth();
@@ -79,5 +79,5 @@ const NewBookmark = () => {
   );
 };
 
-// TODO: replace dashboard loader with new bookmark page specific loader
-export default withProtected(NewBookmark, DashboardLoader);
+// TODO: update NewBookmarkLoader to match format with gray skeleton? Blank for now.
+export default withProtected(NewBookmark, NewBookmarkLoader);

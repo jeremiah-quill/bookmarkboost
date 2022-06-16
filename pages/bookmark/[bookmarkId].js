@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { FiEdit } from "react-icons/fi";
 
 import { getAllBookmarks, getBookmarkByTemp_id, updateTitle, updateUrl } from "../../lib/dbAdmin";
 import { useAuth } from "../../lib/useAuth";
 import { withProtected } from "../../utils/routeProtection";
 
-import DashboardLoader from "../../components/DashboardLoader";
 import DashboardShell from "../../components/DashboardShell";
 import EditableField from "../../components/EditableField";
+import BookmarkPageLoader from "../../components/BookmarkPageLoader";
 
 export async function getStaticProps(context) {
   const temp_id = context.params.bookmarkId;
@@ -93,4 +92,4 @@ const BookmarkPage = ({ bookmark }) => {
 };
 
 // TODO: replace dashboard loader with bookmark page specific loader
-export default withProtected(BookmarkPage, DashboardLoader);
+export default withProtected(BookmarkPage, BookmarkPageLoader);
