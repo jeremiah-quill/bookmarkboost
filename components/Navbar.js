@@ -7,7 +7,7 @@ import { useAuth } from "../lib/useAuth.js";
 import BmQuickAdd from "./BmQuickAdd";
 import Toast from "./Toast.js";
 
-const Navbar = () => {
+const Navbar = ({ folderId, updateBmUi }) => {
   const router = useRouter();
   const { user, signOut } = useAuth();
   const [settingsMenu, setSettingsMenu] = useState(false);
@@ -25,7 +25,7 @@ const Navbar = () => {
           <a>Dashboard</a>
         </Link>
       </nav>
-      <BmQuickAdd />
+      <BmQuickAdd folderId={folderId} updateBmUi={updateBmUi} />
       <div className="relative">
         <button className="" onClick={() => setSettingsMenu((curr) => !curr)}>
           <img className="rounded-full w-7 inline" src={user.user_metadata.picture} />

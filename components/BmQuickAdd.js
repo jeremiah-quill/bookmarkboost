@@ -5,7 +5,7 @@ import useSWR from "swr";
 import { useAuth } from "../lib/useAuth";
 import { newBookmark } from "../lib/dbAdmin";
 
-const BmQuickAdd = () => {
+const BmQuickAdd = ({ folderId, updateBmUi }) => {
   const [inputValue, setInputValue] = useState("");
   const { session, user } = useAuth();
 
@@ -29,11 +29,14 @@ const BmQuickAdd = () => {
     setInputValue("");
 
     const bookmark = {
+      folder_id: folderId,
       url: inputValue,
       title: inputValue,
       user_id: user.id,
       temp_id: uuidv4(),
     };
+
+    updateBmUi(bookmark);
 
     await mutate(newBookmark(bookmark), {
       optimisticData: [...data, bookmark],

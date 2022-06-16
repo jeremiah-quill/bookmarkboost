@@ -1,4 +1,4 @@
-import { getUsersBookmarks } from "../../lib/dbAdmin";
+import { getUsersFolders } from "../../lib/dbAdmin";
 import { supabase } from "../../lib/supabase";
 
 export default async function handler(req, res) {
@@ -6,7 +6,7 @@ export default async function handler(req, res) {
 
   const { data: user } = await supabase.auth.api.getUser(token);
 
-  const { bookmarks } = await getUsersBookmarks(user.id);
+  const { folders } = await getUsersFolders(user.id);
 
-  res.status(200).json(bookmarks);
+  res.status(200).json(folders);
 }

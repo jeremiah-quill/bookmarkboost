@@ -28,7 +28,7 @@ const DashboardPage = () => {
   if (!bookmarks) {
     return (
       <LoaderShell>
-        <Loader />
+        <DashboardLoader />
       </LoaderShell>
     );
   }
@@ -36,6 +36,7 @@ const DashboardPage = () => {
   return (
     <div className="h-full">
       <DashboardShell>
+        <div className="bg-blue-500">in regular dashboard</div>
         <BmList bookmarks={bookmarks} />
       </DashboardShell>
     </div>
