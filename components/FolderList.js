@@ -31,7 +31,7 @@ const FolderList = () => {
       <ul className="flex flex-col gap-2 h-full overflow-y-scroll">
         {!!folders &&
           folders.map((folder) => (
-            <Link key={folder.id} href={`/dashboard/${folder.name}`}>
+            <Link key={folder.id} href={`/dashboard/${folder.id}`}>
               <a className="hover:bg-gray-300 transition-all px-2 py-1">
                 <li>{folder.name}</li>
               </a>

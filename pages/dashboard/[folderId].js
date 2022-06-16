@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getFolderByName, getBookmarksByFolder, getAllFolders } from "../../lib/dbAdmin";
+import { getFolderById, getBookmarksByFolder, getAllFolders } from "../../lib/dbAdmin";
 
 import DashboardShell from "../../components/DashboardShell";
 import BmList from "../../components/BmList";
@@ -8,8 +8,9 @@ import { withProtected } from "../../utils/routeProtection";
 import DashboardLoader from "../../components/DashboardLoader";
 
 export async function getStaticProps(context) {
-  const folderName = context.params.folderName;
-  const folder = await getFolderByName(folderName);
+  const folderId = context.params.folderId;
+  console.log("folderId: ", folderId);
+  const folder = await getFolderById(folderId);
 
   if (!folder) {
     return {
@@ -33,9 +34,11 @@ export async function getStaticProps(context) {
 export async function getStaticPaths() {
   const { folders } = await getAllFolders();
 
+  console.log(folders);
+
   const paths = folders.map((folder) => ({
     params: {
-      folderName: folder.name,
+      folderId: JSON.stringify(folder.id),
     },
   }));
 
@@ -54,11 +57,15 @@ const FolderPage = ({ bookmarks, folder }) => {
     setSyncedBmList((curr) => [...curr, newBm]);
   };
 
+  const removeFromUi = (tempId) => {
+    setSyncedBmList((curr) => curr.filter((el) => el.temp_id !== tempId));
+  };
+
   // TODO: refactor so I don't have to pass folder.id down whole tree
   return (
     <div className="h-full">
       <DashboardShell folderId={folder.id} updateBmUi={updateBmUi}>
-        <BmList bookmarks={syncedBmList} />
+        <BmList bookmarks={syncedBmList} removeFromUi={removeFromUi} />
       </DashboardShell>
     </div>
   );

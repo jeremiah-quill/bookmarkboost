@@ -11,7 +11,7 @@ import { IoIosArrowForward } from "react-icons/io";
 import { TbCopy } from "react-icons/tb";
 import { IoIosOptions } from "react-icons/io";
 
-const BmCard = ({ bookmark }) => {
+const BmCard = ({ bookmark, removeFromUi }) => {
   const [deleteConfirm, setDeleteConfirm] = useState(false);
   const [move, setMove] = useState(false);
 
@@ -39,6 +39,9 @@ const BmCard = ({ bookmark }) => {
       const { data, error } = await supabase.from("bookmarks").delete().eq("temp_id", id);
       return data;
     };
+
+    removeFromUi(bookmark.temp_id);
+
     const optimistic = bookmarks.filter((el) => el.temp_id !== bookmark.temp_id);
     await mutate(removeBookmark(bookmark.temp_id), {
       optimisticData: optimistic,
