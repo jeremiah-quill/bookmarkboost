@@ -1,49 +1,35 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import useSWR from "swr";
-
 import { useAuth } from "../lib/useAuth";
+import useSWR, { mutate } from "swr";
 import { newBookmark } from "../lib/dbAdmin";
 
-const BmQuickAdd = ({ folderId, updateBmUi }) => {
+const BmQuickAdd = ({ folders, updateBmUi }) => {
   const [inputValue, setInputValue] = useState("");
+  const [folderInput, setFolderInput] = useState("");
   const { session, user } = useAuth();
-
-  const fetcher = async (url, token) => {
-    const res = await fetch(url, {
-      method: "GET",
-      headers: new Headers({ "Content-Type": "application/json", token }),
-      credentials: "same-origin",
-    });
-
-    return res.json();
-  };
-
-  const { data, mutate } = useSWR(
-    !session ? null : ["/api/usersBookmarks", session.access_token],
-    fetcher
-  );
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    setInputValue("");
-
     const bookmark = {
-      folder_id: folderId,
+      folder_id: folderInput === "" ? null : folderInput,
       url: inputValue,
       title: inputValue,
       user_id: user.id,
       temp_id: uuidv4(),
     };
 
-    updateBmUi(bookmark);
-
-    await mutate(newBookmark(bookmark), {
-      optimisticData: [...data, bookmark],
-      rollbackOnError: true,
-      populateCache: false,
-      revalidate: true,
-    });
+    setInputValue("");
+    // * 1. Optimistic UI update with no revalidate
+    mutate(
+      ["/api/usersBookmarks", session.access_token],
+      (bookmarks) => [...bookmarks, bookmark],
+      false
+    );
+    // * 2. Update DB
+    const responseBookmark = await newBookmark(bookmark);
+    // * 3. Revalidate
+    mutate(["/api/usersBookmarks", session.access_token]);
   };
 
   return (
@@ -55,6 +41,15 @@ const BmQuickAdd = ({ folderId, updateBmUi }) => {
           onChange={(e) => setInputValue(e.target.value)}
           value={inputValue}
         />
+        <select value={folderInput} name="" onChange={(e) => setFolderInput(e.target.value)}>
+          <option value={""}>/all</option>
+          {!!folders &&
+            folders.map((folder) => (
+              <option key={folder.id} value={folder.id}>
+                {folder.name}
+              </option>
+            ))}
+        </select>
         <button
           type="submit"
           className="text-md border-l border-slate-200 text-gray-900 px-2 bg-white hover:bg-gray-300">

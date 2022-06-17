@@ -1,14 +1,29 @@
+import { useEffect, useState } from "react";
 import BmCard from "./BmCard";
 import NewBmCard from "./NewBmCard";
 
-const BmList = ({ bookmarks, removeFromUi = null }) => {
+const BmList = ({ bookmarks, currentFolder }) => {
+  const [filteredBookmarks, setFilteredBookmarks] = useState([]);
+
+  useEffect(() => {
+    if (currentFolder) {
+      setFilteredBookmarks(bookmarks.filter((bm) => bm.folder_id === currentFolder));
+    } else {
+      setFilteredBookmarks(bookmarks);
+    }
+  }, [currentFolder]);
+
+  useEffect(() => {
+    setFilteredBookmarks(bookmarks);
+  }, [bookmarks]);
+
   return (
     <ul className="grid lg:grid-cols-3 xl:grid-cols-4 gap-2 p-2 auto-rows-min">
       <NewBmCard />
-      {bookmarks
+      {filteredBookmarks
         .sort((a, b) => (a.title < b.title ? -1 : 1))
         .map((bookmark) => (
-          <BmCard key={bookmark.temp_id} bookmark={bookmark} removeFromUi={removeFromUi} />
+          <BmCard key={bookmark.temp_id} bookmark={bookmark} />
         ))}
     </ul>
   );

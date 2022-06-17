@@ -1,18 +1,21 @@
 import useSWR from "swr";
+import { useState } from "react";
 
 import { useAuth } from "../../lib/useAuth";
 import { withProtected } from "../../utils/routeProtection";
 
 import BmList from "../../components/BmList";
 import DashboardLoader from "../../components/DashboardLoader";
-import Header from "../../components/Header";
-import FolderList from "../../components/FolderList";
 import DashboardShell from "../../components/DashboardShell";
 import LoaderShell from "../../components/LoaderShell";
-import NewBmCard from "../../components/NewBmCard";
 
 const DashboardPage = () => {
   const { session } = useAuth();
+  const [currentFolder, setCurrentFolder] = useState(null);
+
+  const viewFolder = (folderId) => {
+    setCurrentFolder(folderId);
+  };
 
   const fetcher = async (url, token) => {
     const res = await fetch(url, {
@@ -36,8 +39,8 @@ const DashboardPage = () => {
 
   return (
     <div className="h-full">
-      <DashboardShell>
-        <BmList bookmarks={bookmarks} />
+      <DashboardShell viewFolder={viewFolder}>
+        <BmList bookmarks={bookmarks} currentFolder={currentFolder} />
       </DashboardShell>
     </div>
   );

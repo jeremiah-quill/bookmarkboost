@@ -8,5 +8,7 @@ export default async function handler(req, res) {
 
   const { bookmarks } = await getUsersBookmarks(user.id);
 
+  console.log(bookmarks);
+
   res.status(200).json(bookmarks);
 }

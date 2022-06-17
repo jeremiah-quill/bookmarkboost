@@ -6,7 +6,7 @@ import FolderListLoader from "./FolderListLoader";
 
 import NewFolderForm from "./NewFolderForm";
 
-const FolderList = () => {
+const FolderList = ({ viewFolder }) => {
   const { user, session } = useAuth();
 
   const fetcher = async (url, token) => {
@@ -15,7 +15,6 @@ const FolderList = () => {
       headers: new Headers({ "Content-Type": "application/json", token }),
       credentials: "same-origin",
     });
-
     return res.json();
   };
 
@@ -25,17 +24,20 @@ const FolderList = () => {
     return <FolderListLoader />;
   }
 
+  // TODO: refactor so that it doesn't send to a different dashboard page, but instead just renders a new view in the dashboard
   return (
     <nav className="h-full">
       <NewFolderForm mutate={mutate} currentFolders={folders} />
       <ul className="flex flex-col gap-2 h-full overflow-y-scroll">
+        <li key="" className="hover:bg-red-300 transition-all px-2 py-1">
+          <button onClick={() => viewFolder(null)}>View all</button>
+        </li>
+
         {!!folders &&
           folders.map((folder) => (
-            <Link key={folder.id} href={`/dashboard/${folder.id}`}>
-              <a className="hover:bg-gray-300 transition-all px-2 py-1">
-                <li>{folder.name}</li>
-              </a>
-            </Link>
+            <li key={folder.id} className="hover:bg-red-300 transition-all px-2 py-1">
+              <button onClick={() => viewFolder(folder.id)}>{folder.name}</button>
+            </li>
           ))}
       </ul>
     </nav>

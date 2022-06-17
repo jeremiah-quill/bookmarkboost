@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Link from "next/link";
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 
 import { useToast } from "../utils/useToast";
 import { supabase } from "../lib/supabase";
@@ -11,44 +11,28 @@ import { IoIosArrowForward } from "react-icons/io";
 import { TbCopy } from "react-icons/tb";
 import { IoIosOptions } from "react-icons/io";
 
-const BmCard = ({ bookmark, removeFromUi }) => {
+const BmCard = ({ bookmark }) => {
   const [deleteConfirm, setDeleteConfirm] = useState(false);
   const [move, setMove] = useState(false);
-
   const { session } = useAuth();
-
   const { showToast } = useToast();
 
-  const fetcher = async (url, token) => {
-    const res = await fetch(url, {
-      method: "GET",
-      headers: new Headers({ "Content-Type": "application/json", token }),
-      credentials: "same-origin",
-    });
-    return res.json();
-  };
-
-  const {
-    data: bookmarks,
-    error,
-    mutate,
-  } = useSWR(["/api/usersBookmarks", session.access_token], fetcher);
-
-  const handleRemove = async (id) => {
+  const handleRemove = async (tempId) => {
     const removeBookmark = async (id) => {
       const { data, error } = await supabase.from("bookmarks").delete().eq("temp_id", id);
       return data;
     };
 
-    removeFromUi(bookmark.temp_id);
-
-    const optimistic = bookmarks.filter((el) => el.temp_id !== bookmark.temp_id);
-    await mutate(removeBookmark(bookmark.temp_id), {
-      optimisticData: optimistic,
-      rollbackOnError: true,
-      populateCache: false,
-      revalidate: true,
-    });
+    // * 1. Optimistic UI update with no revalidate
+    mutate(
+      ["/api/usersBookmarks", session.access_token],
+      (bookmarks) => bookmarks.filter((bm) => bm.temp_id !== tempId),
+      false
+    );
+    // * 2. Update DB
+    await removeBookmark(tempId);
+    // * 3. Revalidate
+    mutate(["/api/usersBookmarks", session.access_token]);
   };
 
   const showDeleteConfirm = (e) => {

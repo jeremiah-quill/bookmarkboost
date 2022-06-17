@@ -11,7 +11,7 @@ const HeaderLoader = () => {
           <nav>
             <div>Dashboard</div>
           </nav>
-          <BmQuickAdd />
+          <div className="h-[20px] w-[250px] bg-gray-300 animate-pulse rounded-md" />
           <div className="relative">
             <img className="rounded-full bg-gray-400 animate-pulse w-7 h-7" />
           </div>
