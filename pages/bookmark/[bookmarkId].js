@@ -8,6 +8,7 @@ import { withProtected } from "../../utils/routeProtection";
 import DashboardShell from "../../components/DashboardShell";
 import EditableField from "../../components/EditableField";
 import BookmarkPageLoader from "../../components/BookmarkPageLoader";
+import Header from "../../components/Header";
 
 export async function getStaticProps(context) {
   const temp_id = context.params.bookmarkId;
@@ -62,7 +63,9 @@ const BookmarkPage = ({ bookmark }) => {
   };
 
   return (
-    <DashboardShell>
+    <>
+      <Header toolbar={false} />
+      {/* <DashboardShell> */}
       <div className="relative pt-5">
         <EditableField
           value={syncedBm.title}
@@ -87,7 +90,8 @@ const BookmarkPage = ({ bookmark }) => {
           />
         </div>
       </div>
-    </DashboardShell>
+      {/* </DashboardShell> */}
+    </>
   );
 };
 

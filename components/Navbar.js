@@ -8,7 +8,7 @@ import { useAuth } from "../lib/useAuth.js";
 import BmQuickAdd from "./BmQuickAdd";
 import Toast from "./Toast.js";
 
-const Navbar = ({ folders, currentFolder }) => {
+const Navbar = ({ folders, currentFolder, toolbar = true }) => {
   const router = useRouter();
   const { user, signOut } = useAuth();
   const [settingsMenu, setSettingsMenu] = useState(false);
@@ -23,8 +23,8 @@ const Navbar = ({ folders, currentFolder }) => {
 
   return (
     <div className="flex items-center w-full justify-between">
-      <BmQuickAdd folders={folders} currentFolder={currentFolder} />
-      <div className="relative">
+      {!!toolbar && <BmQuickAdd folders={folders} currentFolder={currentFolder} />}
+      <div className="relative ml-auto">
         <button className="" onClick={() => setSettingsMenu((curr) => !curr)}>
           <img className="rounded-full w-7 inline" src={user?.user_metadata?.picture} />
         </button>
