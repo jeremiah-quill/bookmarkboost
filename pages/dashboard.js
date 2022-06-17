@@ -28,8 +28,9 @@ const DashboardPage = () => {
   };
 
   const { data: bookmarks } = useSWR(["/api/usersBookmarks", session.access_token], fetcher);
+  const { data: folders } = useSWR(["/api/usersFolders", session.access_token], fetcher);
 
-  if (!bookmarks) {
+  if (!bookmarks || !folders) {
     return (
       <LoaderShell>
         <DashboardLoader />
@@ -39,7 +40,7 @@ const DashboardPage = () => {
 
   return (
     <div className="h-full">
-      <DashboardShell viewFolder={viewFolder}>
+      <DashboardShell viewFolder={viewFolder} folders={folders} currentFolder={currentFolder}>
         <BmList bookmarks={bookmarks} currentFolder={currentFolder} />
       </DashboardShell>
     </div>

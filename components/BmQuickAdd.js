@@ -1,13 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useAuth } from "../lib/useAuth";
-import useSWR, { mutate } from "swr";
+import { mutate } from "swr";
 import { newBookmark } from "../lib/dbAdmin";
 
-const BmQuickAdd = ({ folders, updateBmUi }) => {
+const BmQuickAdd = ({ folders, currentFolder }) => {
   const [inputValue, setInputValue] = useState("");
   const [folderInput, setFolderInput] = useState("");
   const { session, user } = useAuth();
+
+  useEffect(() => {
+    if (!currentFolder) {
+      setFolderInput("");
+    } else {
+      setFolderInput(currentFolder);
+    }
+  }, [currentFolder]);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -19,13 +27,13 @@ const BmQuickAdd = ({ folders, updateBmUi }) => {
       temp_id: uuidv4(),
     };
 
-    setInputValue("");
     // * 1. Optimistic UI update with no revalidate
     mutate(
       ["/api/usersBookmarks", session.access_token],
       (bookmarks) => [...bookmarks, bookmark],
       false
     );
+    setInputValue("");
     // * 2. Update DB
     const responseBookmark = await newBookmark(bookmark);
     // * 3. Revalidate
@@ -37,12 +45,11 @@ const BmQuickAdd = ({ folders, updateBmUi }) => {
       <form className="flex items-center" onSubmit={onSubmit}>
         <input
           placeholder="Quick add URL..."
-          className=""
           onChange={(e) => setInputValue(e.target.value)}
           value={inputValue}
         />
         <select value={folderInput} name="" onChange={(e) => setFolderInput(e.target.value)}>
-          <option value={""}>/all</option>
+          <option value="">No Folder</option>
           {!!folders &&
             folders.map((folder) => (
               <option key={folder.id} value={folder.id}>

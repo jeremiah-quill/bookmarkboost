@@ -8,7 +8,7 @@ import { useAuth } from "../lib/useAuth.js";
 import BmQuickAdd from "./BmQuickAdd";
 import Toast from "./Toast.js";
 
-const Navbar = ({ updateBmUi }) => {
+const Navbar = ({ folders, currentFolder }) => {
   const router = useRouter();
   const { user, signOut } = useAuth();
   const [settingsMenu, setSettingsMenu] = useState(false);
@@ -21,31 +21,9 @@ const Navbar = ({ updateBmUi }) => {
     return router.push("/");
   };
 
-  const fetcher = async (url, token) => {
-    const res = await fetch(url, {
-      method: "GET",
-      headers: new Headers({ "Content-Type": "application/json", token }),
-      credentials: "same-origin",
-    });
-
-    return res.json();
-  };
-
-  const { data: folders } = useSWR(
-    !session ? null : ["/api/usersFolders", session.access_token],
-    fetcher
-  );
-
-  if (!folders) return "loading...";
-
   return (
     <div className="flex items-center w-full justify-between">
-      <nav>
-        <Link href="/dashboard">
-          <a>Dashboard</a>
-        </Link>
-      </nav>
-      <BmQuickAdd folders={folders} updateBmUi={updateBmUi} />
+      <BmQuickAdd folders={folders} currentFolder={currentFolder} />
       <div className="relative">
         <button className="" onClick={() => setSettingsMenu((curr) => !curr)}>
           <img className="rounded-full w-7 inline" src={user?.user_metadata?.picture} />

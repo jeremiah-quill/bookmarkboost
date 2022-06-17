@@ -29,7 +29,7 @@ const NewBookmark = () => {
     const bookmark = { url: urlInput, title: titleInput, notes: notesInput, user_id: user.id };
     // TODO: add error handling
     // TODO: refactor to use mutations
-    const response = await newBookmark(bookmark);
+    await newBookmark(bookmark);
     router.replace("/dashboard");
   };
 

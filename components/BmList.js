@@ -3,7 +3,7 @@ import BmCard from "./BmCard";
 import NewBmCard from "./NewBmCard";
 
 const BmList = ({ bookmarks, currentFolder }) => {
-  const [filteredBookmarks, setFilteredBookmarks] = useState([]);
+  const [filteredBookmarks, setFilteredBookmarks] = useState(bookmarks);
 
   useEffect(() => {
     if (currentFolder) {
@@ -11,11 +11,7 @@ const BmList = ({ bookmarks, currentFolder }) => {
     } else {
       setFilteredBookmarks(bookmarks);
     }
-  }, [currentFolder]);
-
-  useEffect(() => {
-    setFilteredBookmarks(bookmarks);
-  }, [bookmarks]);
+  }, [currentFolder, bookmarks]);
 
   return (
     <ul className="grid lg:grid-cols-3 xl:grid-cols-4 gap-2 p-2 auto-rows-min">
