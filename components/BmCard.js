@@ -1,10 +1,10 @@
 import { useState } from "react";
 import Link from "next/link";
-import useSWR, { mutate } from "swr";
+import { mutate } from "swr";
 
 import { useToast } from "../utils/useToast";
-import { supabase } from "../lib/supabase";
 import { useAuth } from "../lib/useAuth";
+import { removeBookmark } from "../lib/dbAdmin";
 
 import { AiTwotoneDelete } from "react-icons/ai";
 import { IoIosArrowForward } from "react-icons/io";
@@ -18,11 +18,6 @@ const BmCard = ({ bookmark }) => {
   const { showToast } = useToast();
 
   const handleRemove = async (tempId) => {
-    const removeBookmark = async (id) => {
-      const { data, error } = await supabase.from("bookmarks").delete().eq("temp_id", id);
-      return data;
-    };
-
     // * 1. Optimistic UI update with no revalidate
     mutate(
       ["/api/usersBookmarks", session.access_token],

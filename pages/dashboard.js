@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { useAuth } from "../lib/useAuth";
 import { withProtected } from "../utils/routeProtection";
@@ -8,29 +8,25 @@ import BmList from "../components/BmList";
 import DashboardLoader from "../components/DashboardLoader";
 import DashboardShell from "../components/DashboardShell";
 import LoaderShell from "../components/LoaderShell";
+import { fetcher } from "../utils/fetcher";
+import { useFolder } from "../utils/useFolder";
 
 const DashboardPage = () => {
   const { session } = useAuth();
-  const [currentFolder, setCurrentFolder] = useState(null);
-
-  const viewFolder = (folderId) => {
-    setCurrentFolder(folderId);
-  };
-
-  const fetcher = async (url, token) => {
-    const res = await fetch(url, {
-      method: "GET",
-      headers: new Headers({ "Content-Type": "application/json", token }),
-      credentials: "same-origin",
-    });
-
-    return res.json();
-  };
-
+  const { currentFolder } = useFolder();
+  const [filteredBookmarks, setFilteredBookmarks] = useState(null);
   const { data: bookmarks } = useSWR(["/api/usersBookmarks", session.access_token], fetcher);
   const { data: folders } = useSWR(["/api/usersFolders", session.access_token], fetcher);
 
-  if (!bookmarks || !folders) {
+  useEffect(() => {
+    if (currentFolder) {
+      setFilteredBookmarks(bookmarks.filter((bm) => bm.folder_id === currentFolder));
+    } else {
+      setFilteredBookmarks(bookmarks);
+    }
+  }, [currentFolder, bookmarks]);
+
+  if (!filteredBookmarks || !folders) {
     return (
       <LoaderShell>
         <DashboardLoader />
@@ -40,8 +36,8 @@ const DashboardPage = () => {
 
   return (
     <div className="h-full">
-      <DashboardShell viewFolder={viewFolder} folders={folders} currentFolder={currentFolder}>
-        <BmList bookmarks={bookmarks} currentFolder={currentFolder} />
+      <DashboardShell>
+        <BmList bookmarks={filteredBookmarks} />
       </DashboardShell>
     </div>
   );

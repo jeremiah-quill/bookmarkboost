@@ -1,6 +1,19 @@
+import useSWR from "swr";
+
+import { useFolder } from "../utils/useFolder";
+import { useAuth } from "../lib/useAuth";
+import { fetcher } from "../utils/fetcher";
 import NewFolderForm from "./NewFolderForm";
 
-const FolderList = ({ viewFolder, currentFolder, folders }) => {
+const FolderList = () => {
+  const { currentFolder, viewFolder } = useFolder();
+  const { session } = useAuth();
+
+  const { data: folders } = useSWR(["/api/usersFolders", session.access_token], fetcher);
+
+  // TODO: handle loading
+  if (!folders) return "...loading";
+
   // TODO: refactor so that it doesn't send to a different dashboard page, but instead just renders a new view in the dashboard
   return (
     <nav className="h-full">

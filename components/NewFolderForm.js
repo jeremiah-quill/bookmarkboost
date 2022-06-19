@@ -6,7 +6,6 @@ import { newFolder } from "../lib/dbAdmin";
 
 const NewFolderForm = () => {
   const [inputValue, setInputValue] = useState("");
-
   const { user, session } = useAuth();
 
   const handleSubmit = async (e) => {

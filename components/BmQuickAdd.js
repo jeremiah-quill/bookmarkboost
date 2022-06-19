@@ -1,13 +1,21 @@
 import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { useAuth } from "../lib/useAuth";
-import { mutate } from "swr";
-import { newBookmark } from "../lib/dbAdmin";
+import useSWR, { mutate } from "swr";
 
-const BmQuickAdd = ({ folders, currentFolder }) => {
+import { fetcher } from "../utils/fetcher";
+import { useAuth } from "../lib/useAuth";
+import { newBookmark } from "../lib/dbAdmin";
+import { useFolder } from "../utils/useFolder";
+
+const BmQuickAdd = () => {
   const [inputValue, setInputValue] = useState("");
   const [folderInput, setFolderInput] = useState("");
   const { session, user } = useAuth();
+  const { currentFolder } = useFolder();
+  const { data: folders } = useSWR(["/api/usersFolders", session.access_token], fetcher);
+
+  // TODO: handle loading
+  if (!folders) return "loading...";
 
   useEffect(() => {
     if (!currentFolder) {
