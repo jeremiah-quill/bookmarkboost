@@ -49,14 +49,18 @@ const BmQuickAdd = () => {
   };
 
   return (
-    <div className="border border-slate-200 rounded-md pl-2 overflow-hidden">
+    <div className="border border-slate-200 dark:border-[#282828] dark:bg-[#1c1c1c] rounded-md pl-2 overflow-hidden">
       <form className="flex items-center" onSubmit={onSubmit}>
         <input
+          className="dark:bg-[#1c1c1c]"
           placeholder="Quick add URL..."
           onChange={(e) => setInputValue(e.target.value)}
           value={inputValue}
         />
-        <select value={folderInput} name="" onChange={(e) => setFolderInput(e.target.value)}>
+        <select
+          value={folderInput}
+          className="dark:bg-[#1c1c1c] dark:text-[#a0a0a0] dark:border-[#282828]"
+          onChange={(e) => setFolderInput(e.target.value)}>
           <option value="">No Folder</option>
           {!!folders &&
             folders.map((folder) => (
@@ -67,7 +71,7 @@ const BmQuickAdd = () => {
         </select>
         <button
           type="submit"
-          className="text-md border-l border-slate-200 text-gray-900 px-2 bg-white hover:bg-gray-300">
+          className="text-md border-l border-slate-200 dark:border-[#282828] text-gray-900 dark:text-[#ededed] px-2 bg-white dark:bg-[#232323] hover:bg-gray-300 dark:hover:bg-[#404040]">
           Save
         </button>
       </form>

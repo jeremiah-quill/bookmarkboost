@@ -18,10 +18,12 @@ const FolderList = () => {
   return (
     <nav className="h-full">
       <NewFolderForm currentFolders={folders} />
-      <ul className="flex flex-col gap-2 h-full overflow-y-scroll">
-        <li key="" className="hover:bg-gray-300 transition-all flex">
+      <ul className="flex flex-col gap-2 h-full overflow-y-scroll dark:border-[#282828]">
+        <li key="" className="hover:bg-gray-300 dark:hover:bg-[#404040] transition-all flex">
           <button
-            className={`${!currentFolder && "ml-3"} w-full text-left px-2 py-1 transition-all`}
+            className={`${
+              !currentFolder && "ml-3"
+            } w-full text-left px-2 py-1 transition-all dark:text-[#a0a0a0]`}
             onClick={() => viewFolder(null)}>
             View all
           </button>
@@ -29,9 +31,11 @@ const FolderList = () => {
 
         {!!folders &&
           folders.map((folder) => (
-            <li key={folder.id} className="hover:bg-gray-300 transition-all flex">
+            <li
+              key={folder.id}
+              className="hover:bg-gray-300 dark:hover:bg-[#404040]  transition-all flex">
               <button
-                className={`transition-all px-2 py-1 w-full text-left ${
+                className={`transition-all px-2 py-1 w-full text-left dark:text-[#a0a0a0] ${
                   currentFolder === folder.id ? "ml-3" : ""
                 }`}
                 onClick={() => viewFolder(folder.id)}>

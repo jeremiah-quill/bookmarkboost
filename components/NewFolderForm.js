@@ -27,15 +27,17 @@ const NewFolderForm = () => {
   };
 
   return (
-    <form className="flex bg-white border-b border-slate-200" onSubmit={handleSubmit}>
+    <form
+      className="flex bg-white border-b dark:bg-[#232323] border-slate-200 dark:border-[#282828] dark:text-[#ededed]"
+      onSubmit={handleSubmit}>
       <input
-        className="w-full px-2 py-1 border-r border-slate-200"
+        className="w-full px-2 py-1 border-r border-slate-200 dark:border-[#282828] dark:text-[#ededed] dark:bg-[#232323]"
         type="text"
         placeholder="add folder..."
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
       />
-      <button type="submit" className="px-2 py-1 hover:bg-gray-300">
+      <button type="submit" className="px-2 py-1 hover:bg-gray-300 dark:hover:bg-[#404040]">
         Save
       </button>
     </form>
