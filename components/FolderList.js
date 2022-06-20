@@ -32,13 +32,13 @@ const FolderList = () => {
         {!!folders &&
           folders.map((folder) => (
             <li
-              key={folder.id}
+              key={folder.temp_id}
               className="hover:bg-gray-300 dark:hover:bg-[#404040]  transition-all flex">
               <button
                 className={`transition-all px-2 py-1 w-full text-left text-black dark:text-[#a0a0a0] ${
-                  currentFolder === folder.id ? "ml-3" : ""
+                  currentFolder === folder.temp_id ? "ml-3" : ""
                 }`}
-                onClick={() => viewFolder(folder.id)}>
+                onClick={() => viewFolder(folder.temp_id)}>
                 {folder.name}
               </button>
             </li>

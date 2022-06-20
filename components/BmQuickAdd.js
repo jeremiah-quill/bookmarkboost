@@ -59,12 +59,12 @@ const BmQuickAdd = () => {
         />
         <select
           value={folderInput}
-          className="bg-white dark:bg-[#1c1c1c] dark:text-[#a0a0a0] dark:border-[#282828]"
+          className="bg-white dark:bg-[#1c1c1c] text-black dark:text-[#a0a0a0] dark:border-[#282828]"
           onChange={(e) => setFolderInput(e.target.value)}>
           <option value="">No Folder</option>
           {!!folders &&
             folders.map((folder) => (
-              <option key={folder.id} value={folder.id}>
+              <option key={folder.temp_id} value={folder.temp_id}>
                 {folder.name}
               </option>
             ))}

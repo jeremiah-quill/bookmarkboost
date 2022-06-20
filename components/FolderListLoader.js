@@ -6,11 +6,11 @@ const FolderListLoader = () => {
     <nav className="h-full">
       <form className="flex bg-white border-b dark:bg-[#232323] border-slate-200 dark:border-[#282828] dark:text-[#ededed]">
         <input
-          className="w-full px-2 py-1 border-r border-slate-200 dark:border-[#282828] dark:text-[#ededed] dark:bg-[#232323]"
+          className="w-full px-2 py-1 border-r border-slate-200 dark:border-[#282828] dark:text-[#ededed] bg-white dark:bg-[#232323]"
           // type="text"
           placeholder="add folder..."
         />
-        <button type="submit" className="px-2 py-1">
+        <button type="submit" className="px-2 py-1 text-black dark:text=[#ededed]">
           Save
         </button>
       </form>

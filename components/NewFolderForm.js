@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { mutate } from "swr";
+import { v4 as uuidv4 } from "uuid";
 
 import { useAuth } from "../lib/useAuth";
 import { newFolder } from "../lib/dbAdmin";
@@ -15,6 +16,7 @@ const NewFolderForm = () => {
     const folder = {
       name: inputValue,
       user_id: user.id,
+      temp_id: uuidv4(),
     };
 
     // * 1. Optimistic UI update with no revalidate

@@ -18,7 +18,13 @@ const Navbar = ({ toolbar = true }) => {
   };
 
   const toggleTheme = (e) => {
-    document.querySelector("body").classList.toggle("dark");
+    if (localStorage.getItem("theme") === "dark") {
+      localStorage.setItem("theme", "light");
+      document.querySelector("body").classList.remove("dark");
+    } else {
+      localStorage.setItem("theme", "dark");
+      document.querySelector("body").classList.add("dark");
+    }
   };
 
   return (

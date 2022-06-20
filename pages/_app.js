@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { useEffect } from "react";
 
 import { AuthProvider } from "../lib/useAuth";
 import { ToastProvider } from "../utils/useToast";
@@ -8,6 +9,15 @@ import { FolderProvider } from "../utils/useFolder";
 import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
+  useEffect(() => {
+    const theme = localStorage.getItem("theme");
+    if (theme === "dark") {
+      document.querySelector("body").classList.add("dark");
+    } else {
+      document.querySelector("body").classList.remove("dark");
+    }
+  }, []);
+
   return (
     <>
       <AuthProvider>
