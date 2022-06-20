@@ -49,17 +49,17 @@ const BmQuickAdd = () => {
   };
 
   return (
-    <div className="border border-slate-200 dark:border-[#282828] dark:bg-[#1c1c1c] rounded-md pl-2 overflow-hidden">
+    <div className="border border-slate-200 dark:border-[#282828] bg-white dark:bg-[#1c1c1c] rounded-md pl-2 overflow-hidden">
       <form className="flex items-center" onSubmit={onSubmit}>
         <input
-          className="dark:bg-[#1c1c1c]"
+          className="bg-white dark:bg-[#1c1c1c]"
           placeholder="Quick add URL..."
           onChange={(e) => setInputValue(e.target.value)}
           value={inputValue}
         />
         <select
           value={folderInput}
-          className="dark:bg-[#1c1c1c] dark:text-[#a0a0a0] dark:border-[#282828]"
+          className="bg-white dark:bg-[#1c1c1c] dark:text-[#a0a0a0] dark:border-[#282828]"
           onChange={(e) => setFolderInput(e.target.value)}>
           <option value="">No Folder</option>
           {!!folders &&

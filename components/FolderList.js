@@ -23,7 +23,7 @@ const FolderList = () => {
           <button
             className={`${
               !currentFolder && "ml-3"
-            } w-full text-left px-2 py-1 transition-all dark:text-[#a0a0a0]`}
+            } w-full text-left px-2 py-1 transition-all text-black dark:text-[#a0a0a0]`}
             onClick={() => viewFolder(null)}>
             View all
           </button>
@@ -35,7 +35,7 @@ const FolderList = () => {
               key={folder.id}
               className="hover:bg-gray-300 dark:hover:bg-[#404040]  transition-all flex">
               <button
-                className={`transition-all px-2 py-1 w-full text-left dark:text-[#a0a0a0] ${
+                className={`transition-all px-2 py-1 w-full text-left text-black dark:text-[#a0a0a0] ${
                   currentFolder === folder.id ? "ml-3" : ""
                 }`}
                 onClick={() => viewFolder(folder.id)}>

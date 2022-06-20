@@ -1,9 +1,11 @@
 import { Html, Head, Main, NextScript } from "next/document";
+// import { useTheme } from "../utils/useTheme";
 
 export default function Document() {
+  // const { isDarkMode } = useTheme();
+
   return (
     <Html>
-      {/* <Html class="dark"> */}
       <Head />
       <body>
         <Main />

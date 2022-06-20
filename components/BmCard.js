@@ -51,11 +51,12 @@ const BmCard = ({ bookmark }) => {
         onMouseOut={() => setMove(false)}
         className={`flex flex-col h-full`}>
         <div className="flex justify-between items-center">
-          <h2 className="text-2xl dark:text-[#ededed]">{bookmark.title}</h2>
+          <h2 className="text-2xl text-black dark:text-[#ededed]">{bookmark.title}</h2>
           <IoIosArrowForward
             size="1rem"
-            className={`transition-all dark:text-[#ededed] relative ${move && "translate-x-[5px]"}`}
-            // color="#ededed"
+            className={`transition-all text-black dark:text-[#ededed] relative ${
+              move && "translate-x-[5px]"
+            }`}
           />
         </div>
         <div className="flex gap-2 items-middle mt-auto">
@@ -70,19 +71,17 @@ const BmCard = ({ bookmark }) => {
           <Link onClick={(e) => e.preventDefault()} href={`/bookmark/${bookmark.temp_id}`}>
             <a className="block">
               <IoIosOptions
-                className="transition-all hover:scale-[110%] dark:text-[#ededed]"
+                className="transition-all hover:scale-[110%] text-black dark:text-[#ededed]"
                 size="1.25rem"
                 style={{ verticalAlign: "middle" }}
-                // color="#ededed"
               />
             </a>
           </Link>{" "}
           <button onClick={(e) => copyURL(e)}>
             <TbCopy
-              className="transition-all hover:scale-[110%] dark:text-[#ededed]"
+              className="transition-all hover:scale-[110%] text-black dark:text-[#ededed]"
               size="1.25rem"
               style={{ verticalAlign: "middle" }}
-              // color="#ededed"
             />
           </button>
         </div>

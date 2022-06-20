@@ -6,7 +6,7 @@ import LoaderShell from "../components/LoaderShell";
 export const withProtected = (WrappedComponent, Loader) => {
   return (props) => {
     const router = useRouter();
-    const { user, session, loading } = useAuth();
+    const { user, loading } = useAuth();
 
     // const loading = true;
 

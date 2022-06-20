@@ -7,8 +7,8 @@ const Header = ({ toolbar }) => {
     <header className="grid grid-cols-12 auto-cols-min fixed top-0 w-full border-b border-slate-200 dark:border-[#282828] z-50 bg-[#fafafa] dark:bg-[#1c1c1c] border-">
       <div className="lg:col-span-2 md:col-span-3 col-span-4">
         <Link href="/dashboard">
-          <a className="">
-            <h1 className="p-2 font-bold text-2xl border-r border-slate-200 dark:border-[#282828] dark:text-[#ededed]">
+          <a>
+            <h1 className="p-2 font-bold text-2xl border-r border-slate-200 dark:border-[#282828] text-black dark:text-[#ededed]">
               {" "}
               Bookmark Boost
             </h1>

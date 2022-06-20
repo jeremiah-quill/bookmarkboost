@@ -28,10 +28,10 @@ const NewFolderForm = () => {
 
   return (
     <form
-      className="flex bg-white border-b dark:bg-[#232323] border-slate-200 dark:border-[#282828] dark:text-[#ededed]"
+      className="flex bg-white border-b dark:bg-[#232323] border-slate-200 dark:border-[#282828] text-black dark:text-[#ededed]"
       onSubmit={handleSubmit}>
       <input
-        className="w-full px-2 py-1 border-r border-slate-200 dark:border-[#282828] dark:text-[#ededed] dark:bg-[#232323]"
+        className="w-full px-2 py-1 border-r border-slate-200 dark:border-[#282828] dark:text-[#ededed] bg-white dark:bg-[#232323]"
         type="text"
         placeholder="add folder..."
         value={inputValue}

@@ -17,13 +17,23 @@ const Navbar = ({ toolbar = true }) => {
     return router.push("/");
   };
 
+  const toggleTheme = (e) => {
+    document.querySelector("body").classList.toggle("dark");
+  };
+
   return (
     <div className="flex items-center w-full justify-between">
       {!!toolbar && <BmQuickAdd />}
-      <div className="relative ml-auto">
+      <div
+        onClick={toggleTheme}
+        className="bg-white text-black dark:bg-[#1c1c1c] dark:text-[#ededed] ml-10">
+        Toggle
+      </div>
+      <div className="relative flex ml-auto">
         <button className="" onClick={() => setSettingsMenu((curr) => !curr)}>
           <img className="rounded-full w-7 inline" src={user?.user_metadata?.picture} />
         </button>
+
         {!settingsMenu ? null : (
           <nav className="absolute -left-10 bg-white border border-slate-200 mt-2 rounded-md z-50">
             <ul>
