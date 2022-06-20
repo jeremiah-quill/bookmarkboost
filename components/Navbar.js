@@ -32,7 +32,7 @@ const Navbar = ({ toolbar = true }) => {
       {!!toolbar && <BmQuickAdd />}
       <div
         onClick={toggleTheme}
-        className="bg-white text-black dark:bg-[#1c1c1c] dark:text-[#ededed] ml-10">
+        className="rounded-md px-2 border hover:bg-gray-300 dark:hover:bg-[#404040] border-slate-200 dark:border-[#282828] bg-white cursor-pointer text-black dark:bg-[#1c1c1c] dark:text-[#ededed] ml-10">
         Toggle
       </div>
       <div className="relative flex ml-auto">

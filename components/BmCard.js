@@ -42,19 +42,21 @@ const BmCard = ({ bookmark }) => {
 
   // TODO: figure out how to use anchor inside of anchor (outside anchor to bookmark URL, inside anchor to bookmarkId page)
   return !deleteConfirm ? (
-    <a
-      target="_blank"
-      className="border border-slate-200 dark:border-[#282828] rounded-md overflow-hidden h-[108px] transition-all cursor-pointer p-4  bg-white dark:bg-[#232323] relative hover:bg-gray-300"
-      href={`https://www.${bookmark.url}.com`}>
-      <li
-        onMouseOver={() => setMove(true)}
-        onMouseOut={() => setMove(false)}
-        className={`flex flex-col h-full`}>
+    <div
+      onMouseOver={() => setMove(true)}
+      onMouseOut={() => setMove(false)}
+      className="border border-slate-200 dark:border-[#282828] rounded-md overflow-hidden h-[108px] transition-all cursor-pointer p-4  bg-white dark:bg-[#232323] relative hover:bg-gray-300">
+      <a
+        target="_blank"
+        href={`https://www.${bookmark.url}.com`}
+        className="absolute left-0 right-0 top-0 bottom-0"
+      />
+      <li className={`flex flex-col h-full`}>
         <div className="flex justify-between items-center">
           <h2 className="text-2xl text-black dark:text-[#ededed]">{bookmark.title}</h2>
           <IoIosArrowForward
             size="1rem"
-            className={`transition-all text-black dark:text-[#ededed] relative ${
+            className={`transition-all text-black dark:text-[#ededed] relative z-50 ${
               move && "translate-x-[5px]"
             }`}
           />
@@ -62,7 +64,7 @@ const BmCard = ({ bookmark }) => {
         <div className="flex gap-2 items-middle mt-auto">
           <button onClick={(e) => showDeleteConfirm(e)}>
             <AiTwotoneDelete
-              className="transition-all hover:scale-[110%]"
+              className="transition-all hover:scale-[110%] z-50 relative"
               color="red"
               size={"1.25rem"}
               style={{ verticalAlign: "middle" }}
@@ -71,7 +73,7 @@ const BmCard = ({ bookmark }) => {
           <Link onClick={(e) => e.preventDefault()} href={`/bookmark/${bookmark.temp_id}`}>
             <a className="block">
               <IoIosOptions
-                className="transition-all hover:scale-[110%] text-black dark:text-[#ededed]"
+                className="transition-all z-50 relative hover:scale-[110%] text-black dark:text-[#ededed]"
                 size="1.25rem"
                 style={{ verticalAlign: "middle" }}
               />
@@ -79,14 +81,15 @@ const BmCard = ({ bookmark }) => {
           </Link>{" "}
           <button onClick={(e) => copyURL(e)}>
             <TbCopy
-              className="transition-all hover:scale-[110%] text-black dark:text-[#ededed]"
+              className="transition-all relative z-50 hover:scale-[110%] text-black dark:text-[#ededed]"
               size="1.25rem"
               style={{ verticalAlign: "middle" }}
             />
           </button>
         </div>
       </li>
-    </a>
+      {/* </a> */}
+    </div>
   ) : (
     <div className="border border-slate-200 dark:border-[#282828] rounded-md overflow-hidden h-[108px] transition-all cursor-pointer bg-white relative hover:bg-gray-300">
       <li
