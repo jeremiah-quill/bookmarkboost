@@ -45,7 +45,7 @@ const BmCard = ({ bookmark }) => {
     <div
       onMouseOver={() => setMove(true)}
       onMouseOut={() => setMove(false)}
-      className="border border-slate-200 dark:border-[#282828] rounded-md overflow-hidden h-[108px] transition-all cursor-pointer p-4  bg-white dark:bg-[#232323] relative hover:bg-gray-300">
+      className="border border-slate-200 dark:border-[#282828] rounded-md overflow-hidden h-[108px] transition-all cursor-pointer p-4  bg-white dark:bg-[#232323] dark:hover:bg-[#404040] relative">
       <a
         target="_blank"
         href={`https://www.${bookmark.url}.com`}
@@ -53,10 +53,10 @@ const BmCard = ({ bookmark }) => {
       />
       <li className={`flex flex-col h-full`}>
         <div className="flex justify-between items-center">
-          <h2 className="text-2xl text-black dark:text-[#ededed]">{bookmark.title}</h2>
+          <h2 className="text-2xl text-black dark:text-[#e5e5e5]">{bookmark.title}</h2>
           <IoIosArrowForward
             size="1rem"
-            className={`transition-all text-black dark:text-[#ededed] relative z-50 ${
+            className={`transition-all text-black dark:text-[#e5e5e5] relative z-50 ${
               move && "translate-x-[5px]"
             }`}
           />

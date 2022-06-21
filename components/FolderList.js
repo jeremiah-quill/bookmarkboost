@@ -18,12 +18,14 @@ const FolderList = () => {
   return (
     <nav className="h-full">
       <NewFolderForm currentFolders={folders} />
-      <ul className="flex flex-col gap-2 h-full overflow-y-scroll dark:border-[#282828]">
-        <li key="" className="hover:bg-gray-300 dark:hover:bg-[#404040] transition-all flex">
+      <ul className="flex flex-col gap-1 p-2 h-full overflow-y-scroll dark:border-[#282828]">
+        <li
+          key=""
+          className={`${
+            !currentFolder && "bg-[#404040]"
+          } px-2 rounded-md dark:text-[#e5e5e5] dark:hover:bg-[#404040] text-2xl transition-all flex`}>
           <button
-            className={`${
-              !currentFolder && "ml-3"
-            } w-full text-left px-2 py-1 transition-all text-black dark:text-[#a0a0a0]`}
+            className={`w-full text-left transition-all text-black dark:text-[#e5e5e5] text-2xl`}
             onClick={() => viewFolder(null)}>
             View all
           </button>
@@ -33,11 +35,11 @@ const FolderList = () => {
           folders.map((folder) => (
             <li
               key={folder.temp_id}
-              className="hover:bg-gray-300 dark:hover:bg-[#404040]  transition-all flex">
+              className={`${
+                currentFolder === folder.temp_id && "bg-[#404040]"
+              } px-2  rounded-md dark:text-[#e5e5e5] dark:hover:bg-[#404040] text-2xl transition-all flex`}>
               <button
-                className={`transition-all px-2 py-1 w-full text-left text-black dark:text-[#a0a0a0] ${
-                  currentFolder === folder.temp_id ? "ml-3" : ""
-                }`}
+                className={`w-full text-left transition-all text-black dark:text-[#e5e5e5] text-2xl`}
                 onClick={() => viewFolder(folder.temp_id)}>
                 {folder.name}
               </button>
